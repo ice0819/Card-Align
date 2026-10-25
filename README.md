@@ -7,7 +7,7 @@ CARD ALIGN 是一款為卡牌收藏者設計的 Android App。
 從確認卡牌邊框，到留下這次收藏的紀錄，整個流程都能在手機上完成。
 
 下載連結：
-https://drive.google.com/file/d/1BpebuwSmJHM6cfiw0v4KpKcm26mg5Vzo/view?usp=sharing
+https://drive.google.com/file/d/1soFLLDzLd4WsMv4V23Er8y3rePDwuLWY/view?usp=sharing
 
 ## 適合哪些人？
 
