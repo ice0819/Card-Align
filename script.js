@@ -8,7 +8,20 @@
   };
   const english = {
     skip: 'Skip to content', navigation: 'Main navigation', mobileNavigation: 'Mobile navigation',
-    navFeatures: 'Features', navHow: 'How it works', navFaq: 'FAQ', navDownload: 'Get the app',
+    navFeatures: 'Features', navHow: 'How it works', navService: 'App & support', navFaq: 'FAQ', navDownload: 'Get the app',
+    serviceEyebrow: 'APP & SUPPORT', serviceTitle: 'Free to use.<br>Support if you like.',
+    serviceIntro: 'CARD ALIGN is a free Android app for card centering analysis. You can also choose to support its independent development.',
+    appServiceLabel: 'ANDROID APP', appServiceTitle: 'Card centering analysis', freeUse: 'Free to use',
+    appServiceBody: 'Download and use the app for free, from border alignment to keeping a record of your collection.',
+    appServiceFeature1: 'Photo import, border detection, and manual alignment',
+    appServiceFeature2: 'Front and back centering ratios and estimated grades',
+    appServiceFeature3: 'Collection records, score card images, and sharing',
+    serviceDownload: 'Get the Android app', donationLabel: 'VOLUNTARY SUPPORT', donationTitle: 'Support independent development',
+    donationAmount: 'Your choice of amount', donationCurrency: 'Charged in New Taiwan Dollars (TWD)',
+    donationBody: 'If the app helps with your collection, you can make a voluntary contribution to support ongoing development and maintenance. The app remains free to use.',
+    donationPaymentNote: 'Confirm the final amount on the ECPay payment page.', donationButton: 'Donate via ECPay',
+    serviceContactNote: 'Questions about the app or a contribution? Contact us by email.', customerServiceLink: 'View contact information',
+    contactUs: 'Contact us', customerServiceTitle: 'Customer service', customerServiceBody: 'Email us with questions about the app or your contribution.',
     themeDark: 'Switch to dark mode', themeLight: 'Switch to light mode', menuOpen: 'Open menu', menuClose: 'Close menu',
     release: 'Made for collectors · Android v1.0', heroTitle1: 'Great cards.', heroTitle2: 'Perfectly aligned.',
     heroDescription: 'See the borders. Save the moment.<br>A little more clarity for the cards you love.',
@@ -106,7 +119,12 @@
     updateActionLabels();
     storage.set('card-align-language', language);
   }
-  languageButton.addEventListener('click', () => setLanguage(language === 'en' ? 'zh-Hant' : 'en'));
+  languageButton.addEventListener('click', () => {
+    setLanguage(language === 'en' ? 'zh-Hant' : 'en');
+    const pageUrl = new URL(window.location.href);
+    pageUrl.searchParams.set('lang', language);
+    try { window.history.replaceState(null, '', pageUrl); } catch (_) {}
+  });
   themeButton.addEventListener('click', () => {
     root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
     storage.set('card-align-theme', root.dataset.theme);
@@ -254,6 +272,10 @@
     document.querySelectorAll('.reveal').forEach(node => revealObserver.observe(node));
   }
   document.querySelector('#year').textContent = new Date().getFullYear();
-  setLanguage(storage.get('card-align-language'));
+  const requestedLanguage = new URLSearchParams(window.location.search).get('lang');
+  const initialLanguage = ['zh', 'zh-Hant'].includes(requestedLanguage)
+    ? 'zh-Hant'
+    : requestedLanguage === 'en' ? 'en' : storage.get('card-align-language');
+  setLanguage(initialLanguage);
   document.querySelector('meta[name="theme-color"]').content = root.dataset.theme === 'dark' ? '#111311' : '#fafaf8';
 })();
