@@ -277,23 +277,6 @@
   }
   initializeHome();
 
-  // The HTML link always downloads the APK directly. Prefer the verified GitHub
-  // release asset when available, while retaining a working public fallback.
-  const apkLinks = [...document.querySelectorAll('.apk-download')];
-  if (apkLinks.length) {
-    fetch('https://api.github.com/repos/ice0819/Card-Align/releases?per_page=10', {
-      headers: { Accept: 'application/vnd.github+json' }
-    }).then(response => response.ok ? response.json() : []).then(releases => {
-      if (!Array.isArray(releases)) return;
-      const release = releases.find(item => item.tag_name === 'v1.0' && !item.draft);
-      const expectedUrl = 'https://github.com/ice0819/Card-Align/releases/download/v1.0/card-align-v1.0.apk';
-      const asset = release?.assets?.find(item => item.name === 'card-align-v1.0.apk'
-        && item.state === 'uploaded' && item.size === 166249494
-        && item.browser_download_url === expectedUrl);
-      if (asset) apkLinks.forEach(link => { link.href = expectedUrl; });
-    }).catch(() => {});
-  }
-
   if (!reducedMotion.matches && 'IntersectionObserver' in window) {
     root.classList.add('js-motion');
     const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
