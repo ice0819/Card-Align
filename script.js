@@ -31,6 +31,24 @@
     madeForCollectors: 'FOR THE CARDS YOU CARE ABOUT.', heroFootnote: 'CENTERING / COLLECTION / SCORE CARDS',
     featureEyebrow: 'A LITTLE DETAIL. A BETTER COLLECTION.', featuresTitle: 'A closer look.<br>A clearer picture.',
     featuresIntro: 'Automatic detection. Your final adjustment. Every border, made clearer.',
+    galleryIntro: 'See what you can do, with actual app screens.', galleryHint: 'Select an image for a closer look', galleryLabel: 'App feature images',
+    poster1Title: 'Start with your cards', poster1Body: 'Import front and back photos to start your analysis.',
+    poster2Title: 'A quick price check', poster2Body: 'Search by card name and view third-party listings.',
+    poster3Title: 'Correct the perspective', poster3Body: 'Fine-tune the corners to align a tilted card photo.',
+    poster4Title: 'Results worth keeping', poster4Body: 'Review the ratios and create your personal score card.',
+    poster5Title: 'Build your collection', poster5Body: 'Keep names, dates, and results ready to revisit.',
+    poster6Title: 'Your preferred look', poster6Body: 'Switch between light, dark, Chinese, and English.',
+    poster1Action: 'Enlarge: Start with your cards', poster2Action: 'Enlarge: A quick price check',
+    poster3Action: 'Enlarge: Correct the perspective', poster4Action: 'Enlarge: Results worth keeping',
+    poster5Action: 'Enlarge: Build your collection', poster6Action: 'Enlarge: Your preferred look',
+    poster1Alt: 'Feature graphic showing the CARD ALIGN home screen, card carousel, and front and back photo import.',
+    poster2Alt: 'Feature graphic showing card name search and third-party SNKRDUNK listing prices.',
+    poster3Alt: 'Feature graphic showing four-corner alignment and perspective correction.',
+    poster4Alt: 'Feature graphic showing border ratios and a personal score card with a custom name and estimated grades.',
+    poster5Alt: 'Feature graphic showing saved card images, names, dates, and results in the collection.',
+    poster6Alt: 'Feature graphic showing dark mode and Chinese and English interface options.',
+    galleryCurrencyNote: 'Card prices shown in the images are third-party listing examples. The app is free; contributions are charged in New Taiwan Dollars (TWD).',
+    galleryServiceLink: 'View app pricing and support', viewOriginal: 'Open full image',
     featureTabs: 'Explore app features', alignTitle: 'Auto first. Fine-tune next.',
     alignBody: 'Detect inner and outer borders, correct perspective, then refine the details with fine lines and an offset crosshair.',
     reportTitle: 'Numbers you can see.', reportBody: 'Check horizontal and vertical ratios on both sides, with PSA / BGS centering grade estimates.',
@@ -154,11 +172,26 @@
   const status = document.querySelector('#carousel-status');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const lightbox = document.querySelector('.card-lightbox');
+  const lightboxOriginal = document.querySelector('.lightbox-original');
   let current = 4;
   let lastInteraction = 0;
   let hovering = false;
   let dragStart = null;
   let suppressClick = false;
+
+  function openImagePreview(image, caption, featureImage = false) {
+    const preview = lightbox.querySelector('img');
+    preview.src = image.currentSrc || image.src;
+    preview.alt = image.alt;
+    preview.width = image.naturalWidth || Number(image.getAttribute('width'));
+    preview.height = image.naturalHeight || Number(image.getAttribute('height'));
+    document.querySelector('#lightbox-caption').textContent = caption;
+    lightbox.classList.toggle('is-feature-image', featureImage);
+    lightboxOriginal.href = preview.src;
+    lightboxOriginal.hidden = !featureImage;
+    lightbox.showModal();
+    document.body.classList.add('dialog-open');
+  }
 
   function showCard(index, manual = true) {
     current = (index + cards.length) % cards.length;
@@ -211,13 +244,13 @@
     card.addEventListener('click', () => {
       if (suppressClick) return;
       if (i !== current) return showCard(i);
-      const image = card.querySelector('img');
-      const preview = lightbox.querySelector('img');
-      preview.src = image.src;
-      preview.alt = image.alt;
-      document.querySelector('#lightbox-caption').textContent = card.dataset.name;
-      lightbox.showModal();
-      document.body.classList.add('dialog-open');
+      openImagePreview(card.querySelector('img'), card.dataset.name);
+    });
+  });
+  document.querySelectorAll('.poster-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const caption = button.closest('.app-poster').querySelector('h3').textContent;
+      openImagePreview(button.querySelector('img'), caption, true);
     });
   });
   document.querySelector('.lightbox-close').addEventListener('click', () => lightbox.close());

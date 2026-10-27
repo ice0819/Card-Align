@@ -29,6 +29,7 @@ python -m http.server 4173 --bind 127.0.0.1
 - 英文文案、語言切換、輪播與互動：`script.js` 的 `english` 字典。
 - 顏色、字級、手機版排版：`styles.css`。主要紅色為 App 的 `#D32F3C`。
 - 卡圖：`assets/cards/`，來自專案的 `7/` 圖片，已壓縮成 WebP。
+- 功能介紹圖：`assets/features/01-start.webp` 至 `06-appearance.webp`，來自使用者目前 VS Code 工作區 `Card Border App Store Graphic/1.png` 至 `6.png`。保留 1080 × 1350 完整構圖，只轉換為 WebP 以減少網頁載入量。桌面以格狀排列，手機可左右滑動，點擊可放大並開啟完整圖片。
 - Logo：`assets/logo.png`，來自 App 的現有 Logo；深色模式使用 CSS 反相呈現白色。
 - 社群分享預覽：`assets/social-preview.jpg`。如果換網址，記得更新 HTML 的 `og:url` 與 `og:image`。
 
