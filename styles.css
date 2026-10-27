@@ -359,10 +359,6 @@ h3 {
   font-size:15px
 }
 /* Hero and the interactive card fan */
-.hero-copy>.release-pill {
-  display:table;
-  margin-inline:auto
-}
 .hero {
   overflow:hidden;
   position:relative
@@ -372,23 +368,6 @@ h3 {
   padding-top:63px;
   position:relative;
   z-index:2
-}
-.release-pill {
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  font-size:11px;
-  font-weight:600;
-  line-height:1.5;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:7px 13px;
-  background:var(--surface)
-}
-.release-pill .icon {
-  width:13px;
-  height:13px;
-  margin-left:5px
 }
 .status-dot {
   width:6px;
@@ -442,18 +421,12 @@ h3 {
 .alignment-spark::after {
   transform:rotate(90deg)
 }
-.hero-description {
-  color:var(--muted);
-  font-size:16px;
-  line-height:1.85;
-  margin-top:7px
-}
 .hero-actions {
   display:flex;
   justify-content:center;
   align-items:center;
   gap:28px;
-  margin-top:26px
+  margin-top:12px
 }
 .card-showcase {
   height:392px;
@@ -585,21 +558,6 @@ h3 {
   letter-spacing:.06em;
   color:var(--muted)
 }
-.hero-footnote {
-  margin-top:38px;
-  padding-top:20px;
-  padding-bottom:23px;
-  border-top:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  color:var(--muted);
-  font-size:10px;
-  letter-spacing:.1em
-}
-.hero-footnote span:first-child {
-  font-weight:700
-}
 /* User-provided feature graphics, shown in full without cropping. */
 .gallery-intro {
   display:flex;
@@ -687,20 +645,6 @@ h3 {
   line-height:1.8;
   margin-top:5px;
 }
-.gallery-note {
-  display:flex;
-  flex-wrap:wrap;
-  gap:4px 12px;
-  font-size:10px;
-  color:var(--muted);
-  line-height:1.9;
-  margin-top:25px;
-}
-.gallery-note a {
-  text-decoration:underline;
-  text-underline-offset:3px;
-  color:var(--ink);
-}
 .card-lightbox.is-feature-image {
   max-width:min(880px,calc(100vw - 32px));
   padding:41px 20px 20px;
@@ -764,10 +708,6 @@ h3 {
   .app-poster figcaption {
     padding-top:13px;
   }
-  .gallery-note {
-    font-size:9px;
-    margin-top:15px;
-  }
 }
 @media(max-width:360px) {
   .app-gallery {
@@ -779,7 +719,7 @@ h3 {
 }
 /* Feature tabs */
 .feature-section {
-  padding-top:105px
+  padding-top:80px
 }
 .feature-layout {
   display:grid;
@@ -1472,13 +1412,6 @@ h3 {
   width:100%;
   border-radius:7px
 }
-.slab-caption {
-  position:absolute;
-  bottom:8px;
-  left:32px;
-  font-size:9px;
-  color:#687261
-}
 .more-side {
   display:flex;
   flex-direction:column;
@@ -1616,24 +1549,6 @@ h3 {
   line-height:1.9;
   color:var(--muted);
   margin-top:10px
-}
-.offline-tag {
-  font-size:9px;
-  color:var(--muted);
-  position:absolute;
-  left:32px;
-  bottom:25px;
-  padding-left:12px
-}
-.offline-tag::before {
-  content:"";
-  position:absolute;
-  width:5px;
-  height:5px;
-  left:0;
-  top:6px;
-  border-radius:50%;
-  background:#748b62
 }
 .compatibility-line {
   display:flex;
@@ -2118,10 +2033,6 @@ html[lang=en] h2 {
   letter-spacing:-.06em;
   line-height:1.1
 }
-html[lang=en] .hero-description {
-  max-width:480px;
-  margin-inline:auto
-}
 html[lang=en] .tab-copy strong {
   font-size:24px
 }
@@ -2145,9 +2056,6 @@ html[lang=en] .search-feature {
 }
 html[lang=en] .export-feature {
   min-height:738px
-}
-html[lang=en] .hero-footnote {
-  letter-spacing:.07em
 }
 @media(min-width:1500px) {
   .hero-copy {
@@ -2397,12 +2305,6 @@ html[lang=en] .hero-footnote {
     width:24px;
     height:24px
   }
-  .offline-tag {
-    left:auto;
-    right:22px;
-    top:35px;
-    bottom:auto
-  }
   .export-feature {
     min-height:752px
   }
@@ -2430,9 +2332,6 @@ html[lang=en] .hero-footnote {
   .slab-label-bottom {
     left:4px;
     font-size:5px
-  }
-  .slab-caption {
-    left:25px
   }
   .search-demo {
     padding-inline:23px
@@ -2559,11 +2458,6 @@ html[lang=en] .hero-footnote {
   .hero-copy {
     padding-top:36px
   }
-  .release-pill {
-    font-size:10px;
-    padding:6px 10px;
-    gap:7px
-  }
   .hero h1 {
     font-size:clamp(43px,10.9vw,63px);
     margin-top:25px;
@@ -2587,13 +2481,9 @@ html[lang=en] .hero-footnote {
     width:1.5px;
     left:8px
   }
-  .hero-description {
-    font-size:13px;
-    line-height:1.9
-  }
   .hero-actions {
     gap:22px;
-    margin-top:23px
+    margin-top:12px
   }
   .hero-actions .button {
     font-size:12px;
@@ -2603,10 +2493,6 @@ html[lang=en] .hero-footnote {
   .hero-actions .button .icon {
     width:17px;
     height:17px
-  }
-  .hero-actions .text-link {
-    font-size:12px;
-    gap:7px
   }
   .card-showcase {
     height:325px;
@@ -2661,18 +2547,6 @@ html[lang=en] .hero-footnote {
   .showcase-hint {
     font-size:9px;
     letter-spacing:0
-  }
-  .hero-footnote {
-    margin-top:25px;
-    padding-top:16px;
-    padding-bottom:16px;
-    font-size:8px;
-    gap:15px;
-    letter-spacing:.035em
-  }
-  .hero-footnote span:last-child {
-    font-size:8px;
-    text-align:right
   }
   .eyebrow {
     font-size:9px;
@@ -2908,9 +2782,6 @@ html[lang=en] .hero-footnote {
   .slab-label-bottom {
     font-size:5.5px
   }
-  .slab-caption {
-    bottom:2px
-  }
   .more-side {
     gap:18px
   }
@@ -2938,12 +2809,6 @@ html[lang=en] .hero-footnote {
   .privacy-symbol {
     width:43px;
     height:43px
-  }
-  .offline-tag {
-    top:auto;
-    bottom:20px;
-    left:26px;
-    right:auto
   }
   .compatibility-line {
     display:flex;
@@ -3070,17 +2935,6 @@ html[lang=en] .hero-footnote {
     font-size:clamp(48px,12vw,70px);
     line-height:1.05
   }
-  html[lang=en] .hero-description {
-    font-size:13px;
-    max-width:310px
-  }
-  html[lang=en] .hero-footnote {
-    font-size:7px;
-    letter-spacing:.02em
-  }
-  html[lang=en] .hero-footnote span:last-child {
-    font-size:7px
-  }
   html[lang=en] h2 {
     font-size:37px
   }
@@ -3119,12 +2973,6 @@ html[lang=en] .hero-footnote {
   .hero-actions .button {
     padding-inline:15px;
     font-size:11px
-  }
-  .hero-actions .text-link {
-    font-size:11px
-  }
-  .hero-footnote span:last-child {
-    max-width:128px
   }
   .steps {
     gap:28px 16px
