@@ -1,0 +1,72 @@
+name: Publish Android APK
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-apk.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-card-align-apk
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      APP_TAG: v1.0
+      APK_NAME: card-align-v1.0.apk
+      APK_SHA256: 6802527ec593f42e6d1381191ac2098013ccefd29f317543d7dde0527ee13402
+    steps:
+      - name: Download the existing public APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --max-time 300 \
+            'https://drive.usercontent.google.com/download?id=1soFLLDzLd4WsMv4V23Er8y3rePDwuLWY&export=download&confirm=t' \
+            --output "$RUNNER_TEMP/$APK_NAME"
+
+      - name: Verify APK integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n' "$APK_SHA256" "$RUNNER_TEMP/$APK_NAME" | sha256sum --check -
+          python3 - "$RUNNER_TEMP/$APK_NAME" <<'PY'
+          import sys, zipfile
+          with zipfile.ZipFile(sys.argv[1]) as apk:
+              names = set(apk.namelist())
+              assert 'AndroidManifest.xml' in names and 'classes.dex' in names
+          print('Android APK structure verified')
+          PY
+
+      - name: Publish the verified APK as a release asset
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          if gh release view "$APP_TAG" --json assets --jq '.assets[].name' 2>/dev/null | grep -Fxq "$APK_NAME"; then
+            mkdir -p "$RUNNER_TEMP/existing-apk"
+            gh release download "$APP_TAG" --pattern "$APK_NAME" --dir "$RUNNER_TEMP/existing-apk"
+            printf '%s  %s\n' "$APK_SHA256" "$RUNNER_TEMP/existing-apk/$APK_NAME" | sha256sum --check -
+            echo 'The matching APK is already published; no assets were overwritten.'
+            exit 0
+          fi
+
+          if ! gh release view "$APP_TAG" >/dev/null 2>&1; then
+            gh release create "$APP_TAG" --draft --target "$SOURCE_COMMIT" \
+              --title 'CARD ALIGN v1.0' \
+              --notes 'Android 7.0+. Download the attached APK to install CARD ALIGN. SHA-256: 6802527ec593f42e6d1381191ac2098013ccefd29f317543d7dde0527ee13402'
+          fi
+
+          draft=$(gh release view "$APP_TAG" --json isDraft --jq '.isDraft')
+          gh release upload "$APP_TAG" "$RUNNER_TEMP/$APK_NAME"
+          if [ "$draft" = true ]; then
+            gh release edit "$APP_TAG" --draft=false --latest
+          fi

@@ -81,10 +81,10 @@
     faq4Q: 'Can I use it on an iPhone?',
     faq4A: 'The app is currently available for Android 7.0 and later. This website introduces the product; use the Android app for photography, alignment, and analysis.',
     faq5Q: 'How do I install the APK?',
-    faq5A: 'Use the download button to open the developer’s Google Drive link, download the APK, then open the file on your phone. If prompted, allow installation only for the browser or file manager you are using. Open CARD ALIGN after installation to import your photos.',
+    faq5A: 'Use the download button to save the APK directly, then open the file on your phone. If prompted, allow installation only for the browser or file manager you are using. Open CARD ALIGN after installation to import your photos.',
     downloadEyebrow: 'YOUR NEXT GREAT FIND STARTS HERE.', downloadTitle: 'Your next card.<br>A little more aligned.',
     downloadBody: 'Keep what you love. See every detail.', downloadApk: 'Download Android APK',
-    downloadMeta: 'v1.0 · Android 7.0+ · Download via Google Drive', feedback: 'Feedback', donate: 'Donate',
+    downloadMeta: 'v1.0 · Android 7.0+ · Direct APK download', feedback: 'Feedback', donate: 'Donate',
     madeWithCare: 'Made with care, for collectors.', artworkCredit: 'Card images are shown for product illustration. All card artwork and trademarks belong to their respective owners.',
     cardPonchoRed: 'Pikachu wearing a Charizard poncho', cardPonchoGreen: 'Pikachu wearing a Rayquaza poncho',
     cardLillie: 'Lillie trainer card', cardMew: 'Mew ex card', cardPikachu: 'Pikachu card',
@@ -276,6 +276,23 @@
 
   }
   initializeHome();
+
+  // The HTML link always downloads the APK directly. Prefer the verified GitHub
+  // release asset when available, while retaining a working public fallback.
+  const apkLinks = [...document.querySelectorAll('.apk-download')];
+  if (apkLinks.length) {
+    fetch('https://api.github.com/repos/ice0819/Card-Align/releases?per_page=10', {
+      headers: { Accept: 'application/vnd.github+json' }
+    }).then(response => response.ok ? response.json() : []).then(releases => {
+      if (!Array.isArray(releases)) return;
+      const release = releases.find(item => item.tag_name === 'v1.0' && !item.draft);
+      const expectedUrl = 'https://github.com/ice0819/Card-Align/releases/download/v1.0/card-align-v1.0.apk';
+      const asset = release?.assets?.find(item => item.name === 'card-align-v1.0.apk'
+        && item.state === 'uploaded' && item.size === 166249494
+        && item.browser_download_url === expectedUrl);
+      if (asset) apkLinks.forEach(link => { link.href = expectedUrl; });
+    }).catch(() => {});
+  }
 
   if (!reducedMotion.matches && 'IntersectionObserver' in window) {
     root.classList.add('js-motion');

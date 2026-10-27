@@ -34,7 +34,15 @@ python -m http.server 4173 --bind 127.0.0.1
 - Logo：`assets/logo.png`，來自 App 的現有 Logo；深色模式使用 CSS 反相呈現白色。
 - 社群分享預覽：`assets/social-preview.jpg`。如果換網址，記得更新 HTML 的 `og:url` 與 `og:image`。
 
-下載連結沿用儲存庫 README 提供的 Google Drive。更新 APK 後，若檔案 ID 改變，請同步更新 `index.html` 內的兩個下載按鈕。
+首頁的兩個下載按鈕會直接取得 APK，不需要先開啟 Google Drive 預覽頁。靜態 HTML 提供已驗證的公開直下載連結；`v1.0` 的 GitHub Release 附件就緒後，網站會自動優先使用 `card-align-v1.0.apk` 的 GitHub 下載網址。查詢失敗時仍保留可用的直下載連結。
+
+### GitHub Releases APK 發布
+
+`.github/workflows/publish-apk.yml` 會在該檔案推送至 main 時，或在 Actions 手動啟動時，取得既有公開 APK，核對 SHA-256 及 APK 結構，再發布為 GitHub Release 附件。不會覆寫已存在、內容不同的附件；驗證失敗時不發布新檔。只有發布步驟使用 GitHub 產生的短期權杖，不需要另外提供密碼或個人 Token。
+
+目前版本：v1.0，166,249,494 bytes；SHA-256：`6802527ec593f42e6d1381191ac2098013ccefd29f317543d7dde0527ee13402`。
+
+更新 APK 時請同步更新 workflow 的來源、版本、檔名與雜湊，以及 `script.js` 的預期版本、檔名、檔案大小與下載網址。
 
 ## 網站內容範圍
 
