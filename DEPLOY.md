@@ -16,7 +16,7 @@ python -m http.server 4173 --bind 127.0.0.1
 
 目標儲存庫：<https://github.com/ice0819/Card-Align>
 
-1. 將本資料夾的**內容**放在儲存庫根目錄，包含 `index.html`、`contact.html`、`styles.css`、`script.js`、`assets/`、`.nojekyll`、`DEPLOY.md`。保留既有 README。
+1. 將本資料夾的**內容**放在儲存庫根目錄，包含 `index.html`、`tutorial.html`、`pricing.html`、`contact.html`、`styles.css`、`script.js`、`assets/`、`.nojekyll`、`DEPLOY.md`。保留既有 README。
 2. 在儲存庫的 **Settings → Pages → Build and deployment**，選擇 **Deploy from a branch**。
 3. 分支選 **main**，目錄選 **/ (root)**，按 **Save**。
 4. 等待 GitHub Pages 完成部署，網站網址為 <https://ice0819.github.io/Card-Align/>。
@@ -26,6 +26,8 @@ python -m http.server 4173 --bind 127.0.0.1
 ## 修改內容
 
 - 中文文案、結構、下載連結：`index.html`。
+- 使用教學：`tutorial.html`，整合皮卡丘邊框比例互動展示與操作步驟。
+- 收費資訊：`pricing.html`，保留免費使用與自願贊助內容；上方導覽使用「收費方式」，頁面內與頁尾保留「服務與贊助」。
 - 獨立的聯絡頁面：`contact.html`，使用相同導覽、語言切換與顯示模式；跨頁導覽會保留目前語言。
 - 英文文案、語言切換、輪播與互動：`script.js` 的 `english` 字典。
 - 顏色、字級、手機版排版：`styles.css`。主要紅色為 App 的 `#D32F3C`。
@@ -54,6 +56,6 @@ python -m http.server 4173 --bind 127.0.0.1
 - 自願贊助：金額自訂，以 **新台幣（TWD）** 計價，連至既有綠界付款頁。網站不蒐集付款資料。
 - 公開客服信箱：**card33358445@gmail.com**，顯示於頁尾並提供 Email 聯絡連結。更換綠界賣家驗證資料時，請同步確認網站聯絡資料。
 - 官網內容可直接瀏覽，不須登入。送審網址請使用官網，而非 APK 的 Google Drive 下載連結。
-- 可使用 <https://ice0819.github.io/Card-Align/?lang=zh-Hant#service-info> 直接開啟中文服務資訊；`?lang=en` 則開啟英文。訪客仍可自行切換語言。
+- 中文收費資訊的獨立網址為 <https://ice0819.github.io/Card-Align/pricing.html?lang=zh-Hant>。舊主頁的 `#service-info` 與 `#how-it-works` 連結會分別導向收費與教學頁面；所有頁面的跨頁連結均保留目前語言。
 
 卡牌圖像與相關商標屬原權利人；展示使用使用者提供的圖片。設計參考 Mobbin 的留白、大字與圖片展示方式，未使用其程式碼、Logo 或網站圖片。

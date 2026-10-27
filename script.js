@@ -2,93 +2,142 @@
   'use strict';
 
   const root = document.documentElement;
-  const isContactPage = root.dataset.page === 'contact';
+  const page = root.dataset.page || 'home';
   const storage = {
     get(key) { try { return localStorage.getItem(key); } catch (_) { return null; } },
     set(key, value) { try { localStorage.setItem(key, value); } catch (_) {} }
   };
   const english = {
-    skip: 'Skip to content', navigation: 'Main navigation', mobileNavigation: 'Mobile navigation',
-    navFeatures: 'Features', navHow: 'How it works', navService: 'App & support', navFaq: 'FAQ', navDownload: 'Get the app',
-    serviceEyebrow: 'APP & SUPPORT', serviceTitle: 'Free to use.<br>Support if you like.',
-    serviceIntro: 'CARD ALIGN is a free Android app for card centering analysis. You can also choose to support its independent development.',
-    appServiceLabel: 'ANDROID APP', appServiceTitle: 'Card centering analysis', freeUse: 'Free to use',
-    appServiceBody: 'Download and use the app for free, from border alignment to keeping a record of your collection.',
-    appServiceFeature1: 'Photo import, border detection, and manual alignment',
-    appServiceFeature2: 'Front and back centering ratios and estimated grades',
-    appServiceFeature3: 'Collection records, score card images, and sharing',
-    serviceDownload: 'Get the Android app', donationLabel: 'VOLUNTARY SUPPORT', donationTitle: 'Support independent development',
-    donationAmount: 'Your choice of amount', donationCurrency: 'Charged in New Taiwan Dollars (TWD)',
-    donationBody: 'If the app helps with your collection, you can make a voluntary contribution to support ongoing development and maintenance. The app remains free to use.',
-    donationPaymentNote: 'Confirm the final amount on the ECPay payment page.', donationButton: 'Donate via ECPay',
-    serviceContactNote: 'Questions about the app or a contribution? Contact us by email.', customerServiceLink: 'View contact information',
-    contactUs: 'Contact us', customerServiceTitle: 'Customer service', customerServiceBody: 'Email us with questions about the app or your contribution.',
-    contactPageTitle: 'Contact us', contactPageIntro: 'Questions about the app, a bug, or a contribution? Get in touch by email.',
-    contactEmailTitle: 'Support email', contactHelp: 'When reporting a problem, include your app version, phone model, or a screenshot to help us understand what happened.',
-    contactWrite: 'Write to us', contactFaq: 'View common questions',
-    themeDark: 'Switch to dark mode', themeLight: 'Switch to light mode', menuOpen: 'Open menu', menuClose: 'Close menu',
-    heroTitle1: 'Great cards.', heroTitle2: 'Perfectly aligned.',
-    downloadAndroid: 'Download for Android', idealCentering: 'A little more balanced',
-    carouselLabel: 'Card showcase. Use the left and right arrow keys to browse.',
-    previousCard: 'Previous card', nextCard: 'Next card',
-    featureEyebrow: 'A LITTLE DETAIL. A BETTER COLLECTION.', featuresTitle: 'A closer look.<br>A clearer picture.',
-    featuresIntro: 'Automatic detection. Your final adjustment. Every border, made clearer.',
-    galleryIntro: 'See what you can do, with actual app screens.', galleryLabel: 'App feature images',
-    poster1Title: 'Start with your cards', poster1Body: 'Import front and back photos to start your analysis.',
-    poster2Title: 'A quick price check', poster2Body: 'Search by card name and view third-party listings.',
-    poster3Title: 'Correct the perspective', poster3Body: 'Fine-tune the corners to align a tilted card photo.',
-    poster4Title: 'Results worth keeping', poster4Body: 'Review the ratios and create your personal score card.',
-    poster5Title: 'Build your collection', poster5Body: 'Keep names, dates, and results ready to revisit.',
-    poster6Title: 'Your preferred look', poster6Body: 'Switch between light, dark, Chinese, and English.',
-    poster1Alt: 'Feature graphic showing the CARD ALIGN home screen, card carousel, and front and back photo import.',
-    poster2Alt: 'Feature graphic showing card name search and third-party SNKRDUNK listing prices.',
-    poster3Alt: 'Feature graphic showing four-corner alignment and perspective correction.',
-    poster4Alt: 'Feature graphic showing border ratios and a personal score card with a custom name and estimated grades.',
-    poster5Alt: 'Feature graphic showing saved card images, names, dates, and results in the collection.',
-    poster6Alt: 'Feature graphic showing dark mode and Chinese and English interface options.',
-    featureTabs: 'Explore app features', alignTitle: 'Auto first. Fine-tune next.',
-    alignBody: 'Detect inner and outer borders, correct perspective, then refine the details with fine lines and an offset crosshair.',
-    reportTitle: 'Numbers you can see.', reportBody: 'Check horizontal and vertical ratios on both sides, with PSA / BGS centering grade estimates.',
-    collectionTitle: 'Keep your favorites close.', collectionBody: 'Save the image, name, date, and result in your collection. Revisit and edit your records anytime.',
-    outerDetection: 'Outer border alignment', interactiveDemo: 'Interactive demo', fourCorners: '4 / 4 corners aligned',
-    adjustCentering: 'Left / right border ratio', dragDemo: 'Drag to explore ratios. Use the app for real analysis.',
-    reportPreview: 'Centering report', exampleResult: 'Illustrative result', estimatedGrades: 'Estimated centering grades',
-    frontSide: 'Front', backSide: 'Back', ratioLegend: 'Horizontal ratio / Vertical ratio',
-    gradeNote: 'Centering estimates only. Not an official grading result.', yourCollection: 'Your collection', collectionDemo: 'Sample collection',
-    collectionSaved: 'Every card has a story worth keeping.',
-    howEyebrow: 'LESS GUESSING. MORE COLLECTING.', howTitle: 'From a photo<br>to a keepsake.',
-    howIntro: 'Pick your photos. Align the borders.<br>Make room for your next favorite.',
-    step1Title: 'Capture or import', step1Body: 'Start with front and back photos of the same card. Wrong way up? Rotate 90° before you begin.',
-    step2Title: 'Align the borders', step2Body: 'Fine-tune the detected points. Confirm the crop, four corners, and inner border in order.',
-    step3Title: 'Read the ratios', step3Body: 'Review both sides and their estimated centering grades. Go back and adjust whenever needed.',
-    step4Title: 'Make it a keepsake', step4Body: 'Name it, save it to your collection, or share an image. Your next card is just a tap away.',
-    savedToCollection: 'Added to collection', moreEyebrow: 'KEEP THE CARDS. KEEP THE MOMENT.',
-    moreTitle: 'For more than analysis.<br>For the love of collecting.', shareLabel: 'MAKE IT YOURS',
-    shareTitle: 'Your card. Your own keepsake.', shareBody: 'A red-and-white label, a slab-inspired design, and your own card name and results.',
-    slabPreview: 'Illustration of a CARD ALIGN score card',
-    searchLabel: 'A LITTLE MARKET CHECK', searchTitle: 'Love a card? Check the market.',
-    searchBody: 'Search by name or number. Name suggestions help you find the right card. View SNKRDUNK listing prices, then check the original listing for details.',
-    searchQuery: 'Pikachu', privacyTitle: 'Your photos stay with you.',
-    privacyBody: 'Perspective correction and border analysis happen on your phone. No cloud upload needed.',
-    bilingual: '繁體中文 / English', lightDark: 'Light / dark mode', exportFormat: 'High-resolution PNG export',
-    faqTitle: 'A few things<br>before you start.', contact: 'More questions? Get in touch',
-    faq1Q: 'Is this the same as professional grading?',
-    faq1A: 'No. CARD ALIGN estimates PSA / BGS centering grades using border ratios only. It does not assess corners, edge wear, or surface condition, and is not an official PSA or BGS product. Use the results as a reference when organizing your collection or preparing for grading.',
-    faq2Q: 'What kind of photos should I use?',
-    faq2A: 'Use front and back photos of the same card, with all four corners visible. Shoot as straight-on as possible and avoid glare. Import from your gallery or open the camera directly. You can rotate the photo in 90° steps before aligning it.',
-    faq3Q: 'Do I need an internet connection?',
-    faq3A: 'Border detection, perspective correction, analysis, and the local collection work offline. Price search, online translation, product listings, and donation links require an internet connection.',
-    faq4Q: 'Can I use it on an iPhone?',
-    faq4A: 'The app is currently available for Android 7.0 and later. This website introduces the product; use the Android app for photography, alignment, and analysis.',
-    faq5Q: 'How do I install the APK?',
-    faq5A: 'Use the download button to save the APK directly, then open the file on your phone. If prompted, allow installation only for the browser or file manager you are using. Open CARD ALIGN after installation to import your photos.',
-    downloadEyebrow: 'YOUR NEXT GREAT FIND STARTS HERE.', downloadTitle: 'Your next card.<br>A little more aligned.',
-    downloadBody: 'Keep what you love. See every detail.', downloadApk: 'Download Android APK',
-    downloadMeta: 'v1.0 · Android 7.0+ · Direct APK download', feedback: 'Feedback', donate: 'Donate',
-    madeWithCare: 'Made with care, for collectors.', artworkCredit: 'Card images are shown for product illustration. All card artwork and trademarks belong to their respective owners.',
-    cardPonchoRed: 'Pikachu wearing a Charizard poncho', cardPonchoGreen: 'Pikachu wearing a Rayquaza poncho',
-    cardLillie: 'Lillie trainer card', cardMew: 'Mew ex card', cardPikachu: 'Pikachu card',
-    cardCharizard: 'Charizard card', cardGengar: 'Gengar card', cardPsyduck: 'Psyduck card', cardPikachuEx: 'Pikachu ex card'
+    skip: "Skip to content",
+    navigation: "Main navigation",
+    mobileNavigation: "Mobile navigation",
+    navFeatures: "Features",
+    navHow: "How it works",
+    navService: "App & support",
+    navFaq: "FAQ",
+    navDownload: "Get the app",
+    serviceEyebrow: "APP & SUPPORT",
+    serviceTitle: "Free to use.<br>Support if you like.",
+    serviceIntro: "CARD ALIGN offers free, open-source card centering analysis with no in-app purchases. Support independent development if you wish.",
+    appServiceLabel: "ANDROID APP",
+    appServiceTitle: "Card centering analysis",
+    freeUse: "Free to use",
+    appServiceBody: "Download and use the app for free, from border alignment to keeping a record of your collection.",
+    appServiceFeature1: "Photo import, border detection, and manual alignment",
+    appServiceFeature2: "Front and back centering ratios and estimated grades",
+    appServiceFeature3: "Collection records, score card images, and sharing",
+    serviceDownload: "Get the Android app",
+    donationLabel: "VOLUNTARY SUPPORT",
+    donationTitle: "Support independent development",
+    donationAmount: "Your choice of amount",
+    donationCurrency: "Charged in New Taiwan Dollars (TWD)",
+    donationBody: "If the app helps with your collection, you can make a voluntary contribution to support ongoing development and maintenance. The app remains free to use.",
+    donationPaymentNote: "Confirm the final amount on the ECPay payment page.",
+    donationButton: "Donate via ECPay",
+    serviceContactNote: "Questions about the app or a contribution? Contact us by email.",
+    customerServiceLink: "View contact information",
+    contactUs: "Contact us",
+    customerServiceTitle: "Customer service",
+    customerServiceBody: "Email us with questions about the app or your contribution.",
+    contactPageTitle: "Contact us",
+    contactEmailTitle: "Support email",
+    contactHelp: "When reporting a problem, include your app version, phone model, or a screenshot to help us understand what happened.",
+    contactWrite: "Write to us",
+    themeDark: "Switch to dark mode",
+    themeLight: "Switch to light mode",
+    menuOpen: "Open menu",
+    menuClose: "Close menu",
+    heroTitle1: "Great cards.",
+    heroTitle2: "Perfectly aligned.",
+    downloadAndroid: "Download for Android",
+    idealCentering: "A little more balanced",
+    carouselLabel: "Card showcase. Use the left and right arrow keys to browse.",
+    previousCard: "Previous card",
+    nextCard: "Next card",
+    featureEyebrow: "A LITTLE DETAIL. A BETTER COLLECTION.",
+    featuresTitle: "A closer look.<br>A clearer picture.",
+    galleryLabel: "App feature images",
+    poster1Title: "Start with your cards",
+    poster1Body: "Import front and back photos to start your analysis.",
+    poster2Title: "A quick price check",
+    poster2Body: "Search card names and check the latest prices.",
+    poster3Title: "Correct the perspective",
+    poster3Body: "Fine-tune the corners to align a tilted card photo.",
+    poster4Title: "Results worth keeping",
+    poster4Body: "Analyze border ratios and turn the results into your own score card.",
+    poster5Title: "Build your collection",
+    poster5Body: "Keep a record and revisit your collection anytime.",
+    poster6Title: "Your preferred look",
+    poster6Body: "Switch between light and dark modes and different languages.",
+    poster1Alt: "Feature graphic showing the CARD ALIGN home screen, card carousel, and front and back photo import.",
+    poster2Alt: "Feature graphic showing card name search and third-party SNKRDUNK listing prices.",
+    poster3Alt: "Feature graphic showing four-corner alignment and perspective correction.",
+    poster4Alt: "Feature graphic showing border ratios and a personal score card with a custom name and estimated grades.",
+    poster5Alt: "Feature graphic showing saved card images, names, dates, and results in the collection.",
+    poster6Alt: "Feature graphic showing dark mode and Chinese and English interface options.",
+    featureTabs: "Explore app features",
+    alignTitle: "Find borders",
+    alignBody: "Detect inner and outer borders, correct perspective, then refine the details with fine lines and an offset crosshair.",
+    reportTitle: "View analysis scores",
+    reportBody: "Check horizontal and vertical ratios on both sides, with PSA / BGS centering grade estimates.",
+    collectionTitle: "Save to collection",
+    collectionBody: "Save the image, name, date, and result in your collection. Revisit and edit your records anytime.",
+    outerDetection: "Outer border alignment",
+    interactiveDemo: "Interactive demo",
+    adjustCentering: "Left / right border ratio",
+    dragDemo: "Drag to explore ratios. Use the app for real analysis.",
+    reportPreview: "Centering report",
+    exampleResult: "Illustrative result",
+    estimatedGrades: "Estimated centering grades",
+    frontSide: "Front",
+    backSide: "Back",
+    ratioLegend: "Horizontal ratio / Vertical ratio",
+    gradeNote: "Centering estimates only. Not an official grading result.",
+    yourCollection: "Your collection",
+    collectionDemo: "Sample collection",
+    howTitle: "From photo to collection.",
+    step1Title: "Capture or import",
+    step1Body: "Prepare front and back photos of the same card.",
+    step2Title: "Align the borders",
+    step2Body: "Fine-tune the detected points. Confirm the crop, four corners, and inner border in order.",
+    step3Title: "Read the ratios",
+    step3Body: "Review both sides and their estimated centering grades. Go back and adjust whenever needed.",
+    step4Title: "Make it a keepsake",
+    step4Body: "Name it, save it to your collection, or export an image to share.",
+    savedToCollection: "Added to collection",
+    shareTitle: "Your card. Your own keepsake.",
+    slabPreview: "Illustration of a CARD ALIGN score card",
+    searchTitle: "Love a card? Check the market.",
+    searchQuery: "Pikachu",
+    faqTitle: "A few things<br>before you start.",
+    faq1Q: "Is this the same as professional grading?",
+    faq1A: "No. CARD ALIGN estimates PSA / BGS centering grades using border ratios only. It does not assess corners, edge wear, or surface condition, and is not an official PSA or BGS product. Use the results as a reference when organizing your collection or preparing for grading.",
+    faq2Q: "What kind of photos should I use?",
+    faq2A: "Use front and back photos of the same card, with all four corners visible. Shoot as straight-on as possible and avoid glare. Import from your gallery or open the camera directly. You can rotate the photo in 90° steps before aligning it.",
+    faq3Q: "Do I need an internet connection?",
+    faq3A: "Border detection, perspective correction, analysis, and the local collection work offline. Price search, online translation, product listings, and donation links require an internet connection.",
+    faq4Q: "Can I use it on an iPhone?",
+    faq4A: "The app is currently available for Android 7.0 and later. This website introduces the product; use the Android app for photography, alignment, and analysis.",
+    faq5Q: "How do I install the APK?",
+    faq5A: "Use the download button to save the APK directly, then open the file on your phone. If prompted, allow installation only for the browser or file manager you are using. Open CARD ALIGN after installation to import your photos.",
+    downloadEyebrow: "YOUR NEXT GREAT FIND STARTS HERE.",
+    downloadTitle: "Your next card.<br>A little more aligned.",
+    downloadApk: "Download Android APK",
+    downloadMeta: "v1.0 · Android 7.0+ · Direct APK download",
+    madeWithCare: "Made with care, for collectors.",
+    artworkCredit: "Card images are shown for product illustration. All card artwork and trademarks belong to their respective owners.",
+    cardPonchoRed: "Pikachu wearing a Charizard poncho",
+    cardPonchoGreen: "Pikachu wearing a Rayquaza poncho",
+    cardLillie: "Lillie trainer card",
+    cardMew: "Mew ex card",
+    cardPikachu: "Pikachu card",
+    cardCharizard: "Charizard card",
+    cardGengar: "Gengar card",
+    cardPsyduck: "Psyduck card",
+    cardPikachuEx: "Pikachu ex card",
+    navPricing: "Pricing",
+    contactWebsiteTitle: "Website",
+    tutorialSteps: "Step-by-step instructions",
   };
   const chineseLabels = {
     themeDark: '切換深色模式', themeLight: '切換淺色模式', menuOpen: '開啟選單', menuClose: '關閉選單'
@@ -122,14 +171,21 @@
     });
     languageButton.textContent = language === 'en' ? '中' : 'EN';
     languageButton.setAttribute('aria-label', language === 'en' ? '切換為繁體中文' : 'Switch to English');
-    const title = isContactPage
-      ? (language === 'en' ? 'Contact us — CARD ALIGN' : '聯絡我們｜CARD ALIGN')
-      : (language === 'en' ? 'CARD ALIGN — Great cards. Perfectly aligned.' : 'CARD ALIGN — 好卡，值得好好對齊。');
-    const description = isContactPage
-      ? (language === 'en' ? 'Contact CARD ALIGN support for questions about the app or a contribution.' : 'CARD ALIGN 客服與聯絡方式，提供 App 使用與贊助問題的 Email 聯絡資訊。')
-      : language === 'en'
-      ? 'The Android app for card collectors. Analyze centering, align borders, and turn your favorite cards into personal keepsakes.'
-      : 'CARD ALIGN 卡牌邊框分析 App。自動偵測內外框、分析正反面居中比例，製作你的收藏小卡，儲存、分享並收進專屬圖鑑。';
+    const pageCopy = {
+      home: language === 'en'
+        ? ['CARD ALIGN — Great cards. Perfectly aligned.', 'The Android app for card collectors. Analyze centering and keep your favorite cards.']
+        : ['CARD ALIGN — 好卡，值得好好對齊。', 'CARD ALIGN 卡牌邊框分析與收藏小卡。'],
+      tutorial: language === 'en'
+        ? ['How it works — CARD ALIGN', 'Learn border alignment, centering analysis, and collection records.']
+        : ['使用教學｜CARD ALIGN', '從照片到收藏，了解邊框定位、比例分析與小卡紀錄流程。'],
+      pricing: language === 'en'
+        ? ['Pricing — CARD ALIGN', 'Free to use with no in-app purchases. Optional contributions are charged in TWD.']
+        : ['收費方式｜CARD ALIGN', '免費使用，無應用程式內購；自願贊助以新台幣計價。'],
+      contact: language === 'en'
+        ? ['Contact us — CARD ALIGN', 'CARD ALIGN support email and official website.']
+        : ['聯絡我們｜CARD ALIGN', 'CARD ALIGN 的客服信箱與網站網址。']
+    };
+    const [title, description] = pageCopy[page] || pageCopy.home;
     document.title = title;
     document.querySelector('meta[name="description"]').content = description;
     document.querySelector('meta[property="og:title"]').content = title;
@@ -172,7 +228,7 @@
   window.matchMedia('(min-width: 1021px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  function initializeHome() {
+  function initializeCarousel() {
     // Native buttons and arrow keys share the same card fan. No drag library needed.
     const showcase = document.querySelector('.card-showcase');
     if (!showcase) return;
@@ -244,8 +300,12 @@
     }, 4500);
     showCard(current, false);
 
+  }
+
+  function initializeAnalysisDemo() {
     // Accessible tabs use roving focus and support arrow, Home, and End keys.
     const tabs = [...document.querySelectorAll('[role="tab"]')];
+    if (!tabs.length) return;
     function selectTab(tab, focus = false) {
       tabs.forEach(item => {
         const selected = item === tab;
@@ -275,7 +335,8 @@
     });
 
   }
-  initializeHome();
+  initializeCarousel();
+  initializeAnalysisDemo();
 
   if (!reducedMotion.matches && 'IntersectionObserver' in window) {
     root.classList.add('js-motion');
@@ -290,5 +351,12 @@
     ? 'zh-Hant'
     : requestedLanguage === 'en' ? 'en' : storage.get('card-align-language');
   setLanguage(initialLanguage);
+  const legacyPages = { '#how-it-works': 'tutorial.html', '#service-info': 'pricing.html' };
+  if (page === 'home' && legacyPages[window.location.hash]) {
+    const target = new URL(legacyPages[window.location.hash], window.location.href);
+    target.searchParams.set('lang', language);
+    target.hash = window.location.hash;
+    window.location.replace(target.href);
+  }
   document.querySelector('meta[name="theme-color"]').content = root.dataset.theme === 'dark' ? '#111311' : '#fafaf8';
 })();
