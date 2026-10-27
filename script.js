@@ -2,6 +2,7 @@
   'use strict';
 
   const root = document.documentElement;
+  const isContactPage = root.dataset.page === 'contact';
   const storage = {
     get(key) { try { return localStorage.getItem(key); } catch (_) { return null; } },
     set(key, value) { try { localStorage.setItem(key, value); } catch (_) {} }
@@ -22,30 +23,29 @@
     donationPaymentNote: 'Confirm the final amount on the ECPay payment page.', donationButton: 'Donate via ECPay',
     serviceContactNote: 'Questions about the app or a contribution? Contact us by email.', customerServiceLink: 'View contact information',
     contactUs: 'Contact us', customerServiceTitle: 'Customer service', customerServiceBody: 'Email us with questions about the app or your contribution.',
+    contactPageTitle: 'Contact us', contactPageIntro: 'Questions about the app, a bug, or a contribution? Get in touch by email.',
+    contactEmailTitle: 'Support email', contactHelp: 'When reporting a problem, include your app version, phone model, or a screenshot to help us understand what happened.',
+    contactWrite: 'Write to us', contactFaq: 'View common questions',
     themeDark: 'Switch to dark mode', themeLight: 'Switch to light mode', menuOpen: 'Open menu', menuClose: 'Close menu',
     heroTitle1: 'Great cards.', heroTitle2: 'Perfectly aligned.',
     downloadAndroid: 'Download for Android', idealCentering: 'A little more balanced',
     carouselLabel: 'Card showcase. Use the left and right arrow keys to browse.',
-    previousCard: 'Previous card', nextCard: 'Next card', swipeHint: 'Swipe to find your next favorite',
+    previousCard: 'Previous card', nextCard: 'Next card',
     featureEyebrow: 'A LITTLE DETAIL. A BETTER COLLECTION.', featuresTitle: 'A closer look.<br>A clearer picture.',
     featuresIntro: 'Automatic detection. Your final adjustment. Every border, made clearer.',
-    galleryIntro: 'See what you can do, with actual app screens.', galleryHint: 'Select an image for a closer look', galleryLabel: 'App feature images',
+    galleryIntro: 'See what you can do, with actual app screens.', galleryLabel: 'App feature images',
     poster1Title: 'Start with your cards', poster1Body: 'Import front and back photos to start your analysis.',
     poster2Title: 'A quick price check', poster2Body: 'Search by card name and view third-party listings.',
     poster3Title: 'Correct the perspective', poster3Body: 'Fine-tune the corners to align a tilted card photo.',
     poster4Title: 'Results worth keeping', poster4Body: 'Review the ratios and create your personal score card.',
     poster5Title: 'Build your collection', poster5Body: 'Keep names, dates, and results ready to revisit.',
     poster6Title: 'Your preferred look', poster6Body: 'Switch between light, dark, Chinese, and English.',
-    poster1Action: 'Enlarge: Start with your cards', poster2Action: 'Enlarge: A quick price check',
-    poster3Action: 'Enlarge: Correct the perspective', poster4Action: 'Enlarge: Results worth keeping',
-    poster5Action: 'Enlarge: Build your collection', poster6Action: 'Enlarge: Your preferred look',
     poster1Alt: 'Feature graphic showing the CARD ALIGN home screen, card carousel, and front and back photo import.',
     poster2Alt: 'Feature graphic showing card name search and third-party SNKRDUNK listing prices.',
     poster3Alt: 'Feature graphic showing four-corner alignment and perspective correction.',
     poster4Alt: 'Feature graphic showing border ratios and a personal score card with a custom name and estimated grades.',
     poster5Alt: 'Feature graphic showing saved card images, names, dates, and results in the collection.',
     poster6Alt: 'Feature graphic showing dark mode and Chinese and English interface options.',
-    viewOriginal: 'Open full image',
     featureTabs: 'Explore app features', alignTitle: 'Auto first. Fine-tune next.',
     alignBody: 'Detect inner and outer borders, correct perspective, then refine the details with fine lines and an offset crosshair.',
     reportTitle: 'Numbers you can see.', reportBody: 'Check horizontal and vertical ratios on both sides, with PSA / BGS centering grade estimates.',
@@ -86,7 +86,6 @@
     downloadBody: 'Keep what you love. See every detail.', downloadApk: 'Download Android APK',
     downloadMeta: 'v1.0 · Android 7.0+ · Download via Google Drive', feedback: 'Feedback', donate: 'Donate',
     madeWithCare: 'Made with care, for collectors.', artworkCredit: 'Card images are shown for product illustration. All card artwork and trademarks belong to their respective owners.',
-    closeImage: 'Close image',
     cardPonchoRed: 'Pikachu wearing a Charizard poncho', cardPonchoGreen: 'Pikachu wearing a Rayquaza poncho',
     cardLillie: 'Lillie trainer card', cardMew: 'Mew ex card', cardPikachu: 'Pikachu card',
     cardCharizard: 'Charizard card', cardGengar: 'Gengar card', cardPsyduck: 'Psyduck card', cardPikachuEx: 'Pikachu ex card'
@@ -123,14 +122,23 @@
     });
     languageButton.textContent = language === 'en' ? '中' : 'EN';
     languageButton.setAttribute('aria-label', language === 'en' ? '切換為繁體中文' : 'Switch to English');
-    const title = language === 'en' ? 'CARD ALIGN — Great cards. Perfectly aligned.' : 'CARD ALIGN — 好卡，值得好好對齊。';
-    const description = language === 'en'
+    const title = isContactPage
+      ? (language === 'en' ? 'Contact us — CARD ALIGN' : '聯絡我們｜CARD ALIGN')
+      : (language === 'en' ? 'CARD ALIGN — Great cards. Perfectly aligned.' : 'CARD ALIGN — 好卡，值得好好對齊。');
+    const description = isContactPage
+      ? (language === 'en' ? 'Contact CARD ALIGN support for questions about the app or a contribution.' : 'CARD ALIGN 客服與聯絡方式，提供 App 使用與贊助問題的 Email 聯絡資訊。')
+      : language === 'en'
       ? 'The Android app for card collectors. Analyze centering, align borders, and turn your favorite cards into personal keepsakes.'
       : 'CARD ALIGN 卡牌邊框分析 App。自動偵測內外框、分析正反面居中比例，製作你的收藏小卡，儲存、分享並收進專屬圖鑑。';
     document.title = title;
     document.querySelector('meta[name="description"]').content = description;
     document.querySelector('meta[property="og:title"]').content = title;
     document.querySelector('meta[property="og:description"]').content = description;
+    document.querySelectorAll('a[data-page-link]').forEach(link => {
+      const url = new URL(link.href, window.location.href);
+      url.searchParams.set('lang', language);
+      link.href = url.href;
+    });
     updateActionLabels();
     storage.set('card-align-language', language);
   }
@@ -161,138 +169,113 @@
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && !mobileMenu.hidden) { closeMenu(); menuButton.focus(); }
   });
-  window.matchMedia('(min-width: 851px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
+  window.matchMedia('(min-width: 1021px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
 
-  // Native buttons and arrow keys share the same card fan. No drag library needed.
-  const showcase = document.querySelector('.card-showcase');
-  const cards = [...showcase.querySelectorAll('.showcase-card')];
-  const status = document.querySelector('#carousel-status');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const lightbox = document.querySelector('.card-lightbox');
-  const lightboxOriginal = document.querySelector('.lightbox-original');
-  let current = 4;
-  let lastInteraction = 0;
-  let hovering = false;
-  let dragStart = null;
-  let suppressClick = false;
+  function initializeHome() {
+    // Native buttons and arrow keys share the same card fan. No drag library needed.
+    const showcase = document.querySelector('.card-showcase');
+    if (!showcase) return;
+    const cards = [...showcase.querySelectorAll('.showcase-card')];
+    const status = document.querySelector('#carousel-status');
+    let current = 4;
+    let lastInteraction = 0;
+    let hovering = false;
+    let dragStart = null;
+    let suppressClick = false;
 
-  function openImagePreview(image, caption, featureImage = false) {
-    const preview = lightbox.querySelector('img');
-    preview.src = image.currentSrc || image.src;
-    preview.alt = image.alt;
-    preview.width = image.naturalWidth || Number(image.getAttribute('width'));
-    preview.height = image.naturalHeight || Number(image.getAttribute('height'));
-    document.querySelector('#lightbox-caption').textContent = caption;
-    lightbox.classList.toggle('is-feature-image', featureImage);
-    lightboxOriginal.href = preview.src;
-    lightboxOriginal.hidden = !featureImage;
-    lightbox.showModal();
-    document.body.classList.add('dialog-open');
-  }
-
-  function showCard(index, manual = true) {
-    current = (index + cards.length) % cards.length;
-    cards.forEach((card, i) => {
-      let distance = (i - current + cards.length) % cards.length;
-      if (distance > cards.length / 2) distance -= cards.length;
-      card.style.setProperty('--offset', distance);
-      card.style.setProperty('--angle', `${distance * 5.5}deg`);
-      card.style.setProperty('--rise', `${Math.abs(distance) ** 1.7 * 6}px`);
-      card.style.setProperty('--layer', 8 - Math.abs(distance));
-      card.classList.toggle('is-current', distance === 0);
-      card.tabIndex = distance === 0 ? 0 : -1;
-      if (distance === 0) card.setAttribute('aria-current', 'true');
-      else card.removeAttribute('aria-current');
+    function showCard(index, manual = true) {
+      current = (index + cards.length) % cards.length;
+      cards.forEach((card, i) => {
+        let distance = (i - current + cards.length) % cards.length;
+        if (distance > cards.length / 2) distance -= cards.length;
+        card.style.setProperty('--offset', distance);
+        card.style.setProperty('--angle', `${distance * 5.5}deg`);
+        card.style.setProperty('--rise', `${Math.abs(distance) ** 1.7 * 6}px`);
+        card.style.setProperty('--layer', 8 - Math.abs(distance));
+        card.classList.toggle('is-current', distance === 0);
+        card.tabIndex = distance === 0 ? 0 : -1;
+        if (distance === 0) card.setAttribute('aria-current', 'true');
+        else card.removeAttribute('aria-current');
+      });
+      if (manual) {
+        lastInteraction = Date.now();
+        status.textContent = `${current + 1} / ${cards.length} — ${cards[current].dataset.name}`;
+      }
+    }
+    document.querySelector('.showcase-prev').addEventListener('click', () => showCard(current - 1));
+    document.querySelector('.showcase-next').addEventListener('click', () => showCard(current + 1));
+    showcase.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault(); showCard(current + (event.key === 'ArrowRight' ? 1 : -1));
+        if (event.target.classList.contains('showcase-card')) cards[current].focus({ preventScroll: true });
+      }
     });
-    if (manual) {
+    showcase.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') hovering = true; });
+    showcase.addEventListener('pointerleave', () => { hovering = false; dragStart = null; });
+    showcase.addEventListener('pointerdown', event => {
+      if (event.button !== 0 || event.target.closest('.showcase-controls')) return;
+      dragStart = { x: event.clientX, y: event.clientY };
       lastInteraction = Date.now();
-      status.textContent = `${current + 1} / ${cards.length} — ${cards[current].dataset.name}`;
-    }
-  }
-  document.querySelector('.showcase-prev').addEventListener('click', () => showCard(current - 1));
-  document.querySelector('.showcase-next').addEventListener('click', () => showCard(current + 1));
-  showcase.addEventListener('keydown', event => {
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-      event.preventDefault(); showCard(current + (event.key === 'ArrowRight' ? 1 : -1));
-      if (event.target.classList.contains('showcase-card')) cards[current].focus({ preventScroll: true });
-    }
-  });
-  showcase.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') hovering = true; });
-  showcase.addEventListener('pointerleave', () => { hovering = false; dragStart = null; });
-  showcase.addEventListener('pointerdown', event => {
-    if (event.button !== 0 || event.target.closest('.showcase-controls')) return;
-    dragStart = { x: event.clientX, y: event.clientY };
-    lastInteraction = Date.now();
-  });
-  showcase.addEventListener('pointerup', event => {
-    if (!dragStart) return;
-    const dx = event.clientX - dragStart.x;
-    const dy = event.clientY - dragStart.y;
-    if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy)) {
-      showCard(current + (dx < 0 ? 1 : -1));
-      suppressClick = true;
-      setTimeout(() => { suppressClick = false; }, 200);
-    }
-    dragStart = null;
-  });
-  showcase.addEventListener('pointercancel', () => { dragStart = null; });
-  cards.forEach((card, i) => {
-    card.addEventListener('dragstart', event => event.preventDefault());
-    card.addEventListener('click', () => {
-      if (suppressClick) return;
-      if (i !== current) return showCard(i);
-      openImagePreview(card.querySelector('img'), card.dataset.name);
     });
-  });
-  document.querySelectorAll('.poster-button').forEach(button => {
-    button.addEventListener('click', () => {
-      const caption = button.closest('.app-poster').querySelector('h3').textContent;
-      openImagePreview(button.querySelector('img'), caption, true);
+    showcase.addEventListener('pointerup', event => {
+      if (!dragStart) return;
+      const dx = event.clientX - dragStart.x;
+      const dy = event.clientY - dragStart.y;
+      if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy)) {
+        showCard(current + (dx < 0 ? 1 : -1));
+        suppressClick = true;
+        setTimeout(() => { suppressClick = false; }, 200);
+      }
+      dragStart = null;
     });
-  });
-  document.querySelector('.lightbox-close').addEventListener('click', () => lightbox.close());
-  lightbox.addEventListener('click', event => {
-    if (event.target !== lightbox) return;
-    const bounds = lightbox.getBoundingClientRect();
-    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) lightbox.close();
-  });
-  lightbox.addEventListener('close', () => { document.body.classList.remove('dialog-open'); lastInteraction = Date.now(); });
-  setInterval(() => {
-    if (reducedMotion.matches || document.hidden || hovering || dragStart || lightbox.open || showcase.contains(document.activeElement) || Date.now() - lastInteraction < 9000) return;
-    const bounds = showcase.getBoundingClientRect();
-    if (bounds.bottom > 0 && bounds.top < window.innerHeight) showCard(current + 1, false);
-  }, 4500);
-  showCard(current, false);
+    showcase.addEventListener('pointercancel', () => { dragStart = null; });
+    cards.forEach((card, i) => {
+      card.addEventListener('dragstart', event => event.preventDefault());
+      card.addEventListener('click', () => {
+        if (suppressClick) return;
+        showCard(i);
+      });
+    });
+    setInterval(() => {
+      if (reducedMotion.matches || document.hidden || hovering || dragStart || showcase.contains(document.activeElement) || Date.now() - lastInteraction < 9000) return;
+      const bounds = showcase.getBoundingClientRect();
+      if (bounds.bottom > 0 && bounds.top < window.innerHeight) showCard(current + 1, false);
+    }, 4500);
+    showCard(current, false);
 
-  // Accessible tabs use roving focus and support arrow, Home, and End keys.
-  const tabs = [...document.querySelectorAll('[role="tab"]')];
-  function selectTab(tab, focus = false) {
-    tabs.forEach(item => {
-      const selected = item === tab;
-      item.setAttribute('aria-selected', String(selected));
-      item.tabIndex = selected ? 0 : -1;
-      item.classList.toggle('is-active', selected);
-      document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
+    // Accessible tabs use roving focus and support arrow, Home, and End keys.
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    function selectTab(tab, focus = false) {
+      tabs.forEach(item => {
+        const selected = item === tab;
+        item.setAttribute('aria-selected', String(selected));
+        item.tabIndex = selected ? 0 : -1;
+        item.classList.toggle('is-active', selected);
+        document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
+      });
+      if (focus) tab.focus({ preventScroll: true });
+    }
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', event => {
+        let next;
+        if (['ArrowRight', 'ArrowDown'].includes(event.key)) next = (index + 1) % tabs.length;
+        if (['ArrowLeft', 'ArrowUp'].includes(event.key)) next = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = tabs.length - 1;
+        if (next !== undefined) { event.preventDefault(); selectTab(tabs[next], true); }
+      });
     });
-    if (focus) tab.focus({ preventScroll: true });
+    const range = document.querySelector('#centering-offset');
+    range.addEventListener('input', () => {
+      const offset = Number(range.value);
+      document.querySelector('#centering-output').value = `${50 + offset} : ${50 - offset}`;
+      document.querySelector('.inner-outline').style.setProperty('--demo-offset', `${offset / 2}px`);
+    });
+
   }
-  tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => selectTab(tab));
-    tab.addEventListener('keydown', event => {
-      let next;
-      if (['ArrowRight', 'ArrowDown'].includes(event.key)) next = (index + 1) % tabs.length;
-      if (['ArrowLeft', 'ArrowUp'].includes(event.key)) next = (index - 1 + tabs.length) % tabs.length;
-      if (event.key === 'Home') next = 0;
-      if (event.key === 'End') next = tabs.length - 1;
-      if (next !== undefined) { event.preventDefault(); selectTab(tabs[next], true); }
-    });
-  });
-  const range = document.querySelector('#centering-offset');
-  range.addEventListener('input', () => {
-    const offset = Number(range.value);
-    document.querySelector('#centering-output').value = `${50 + offset} : ${50 - offset}`;
-    document.querySelector('.inner-outline').style.setProperty('--demo-offset', `${offset / 2}px`);
-  });
+  initializeHome();
 
   if (!reducedMotion.matches && 'IntersectionObserver' in window) {
     root.classList.add('js-motion');

@@ -16,7 +16,7 @@ python -m http.server 4173 --bind 127.0.0.1
 
 目標儲存庫：<https://github.com/ice0819/Card-Align>
 
-1. 將本資料夾的**內容**放在儲存庫根目錄，包含 `index.html`、`styles.css`、`script.js`、`assets/`、`.nojekyll`、`DEPLOY.md`。保留既有 README。
+1. 將本資料夾的**內容**放在儲存庫根目錄，包含 `index.html`、`contact.html`、`styles.css`、`script.js`、`assets/`、`.nojekyll`、`DEPLOY.md`。保留既有 README。
 2. 在儲存庫的 **Settings → Pages → Build and deployment**，選擇 **Deploy from a branch**。
 3. 分支選 **main**，目錄選 **/ (root)**，按 **Save**。
 4. 等待 GitHub Pages 完成部署，網站網址為 <https://ice0819.github.io/Card-Align/>。
@@ -26,10 +26,11 @@ python -m http.server 4173 --bind 127.0.0.1
 ## 修改內容
 
 - 中文文案、結構、下載連結：`index.html`。
+- 獨立的聯絡頁面：`contact.html`，使用相同導覽、語言切換與顯示模式；跨頁導覽會保留目前語言。
 - 英文文案、語言切換、輪播與互動：`script.js` 的 `english` 字典。
 - 顏色、字級、手機版排版：`styles.css`。主要紅色為 App 的 `#D32F3C`。
 - 卡圖：`assets/cards/`，來自專案的 `7/` 圖片，已壓縮成 WebP。
-- 功能介紹圖：`assets/features/01-start.webp` 至 `06-appearance.webp`，來自使用者目前 VS Code 工作區 `Card Border App Store Graphic/1.png` 至 `6.png`。保留 1080 × 1350 完整構圖，只轉換為 WebP 以減少網頁載入量。桌面以格狀排列，手機可左右滑動，點擊可放大並開啟完整圖片。
+- 功能介紹圖：`assets/features/01-start.webp` 至 `06-appearance.webp`，來自使用者目前 VS Code 工作區 `Card Border App Store Graphic/1.png` 至 `6.png`。保留 1080 × 1350 完整構圖，只轉換為 WebP 以減少網頁載入量。六張圖片以一頁式逐段往下呈現，桌面圖文左右交錯，手機上下排列，沒有標號或圖片放大功能。
 - Logo：`assets/logo.png`，來自 App 的現有 Logo；深色模式使用 CSS 反相呈現白色。
 - 社群分享預覽：`assets/social-preview.jpg`。如果換網址，記得更新 HTML 的 `og:url` 與 `og:image`。
 

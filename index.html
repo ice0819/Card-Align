@@ -29,7 +29,6 @@
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></symbol>
-    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
     <symbol id="i-scan" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m8 0h5v-5M7 12h10M12 7v10"/></symbol>
     <symbol id="i-photo" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 6-6 5 5 3-3 4 4"/></symbol>
@@ -44,7 +43,7 @@
   <a class="skip-link" href="#main" data-i18n="skip">跳至主要內容</a>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="#" aria-label="CARD ALIGN home">
+      <a class="brand" href="index.html" data-page-link aria-label="CARD ALIGN home">
         <img class="brand-mark" src="assets/logo.png" width="40" height="40" alt="">
         <span>CARD ALIGN<span class="brand-dot" aria-hidden="true">+</span></span>
       </a>
@@ -53,6 +52,7 @@
         <a href="#how-it-works" data-i18n="navHow">如何使用</a>
         <a href="#service-info" data-i18n="navService">服務與贊助</a>
         <a href="#faq" data-i18n="navFaq">常見問題</a>
+        <a href="contact.html" data-page-link data-i18n="contactUs">聯絡我們</a>
       </nav>
       <div class="header-actions">
         <button class="icon-button theme-toggle" type="button" aria-label="切換深色模式" data-i18n-aria="themeDark" aria-pressed="false"><svg class="icon moon"><use href="#i-moon"/></svg><svg class="icon sun"><use href="#i-sun"/></svg></button>
@@ -66,6 +66,7 @@
       <a href="#how-it-works" data-i18n="navHow">如何使用</a>
       <a href="#service-info" data-i18n="navService">服務與贊助</a>
       <a href="#faq" data-i18n="navFaq">常見問題</a>
+        <a href="contact.html" data-page-link data-i18n="contactUs">聯絡我們</a>
       <a href="#download" data-i18n="navDownload">取得 App</a>
     </nav>
   </header>
@@ -93,38 +94,38 @@
           <button type="button" class="showcase-card" data-name="Poncho Pikachu · Rayquaza" style="--offset:4;--angle:21deg;--rise:70px;--layer:1" aria-label="Poncho Pikachu · Rayquaza"><img src="assets/cards/poncho-green.webp" width="360" height="502" alt="穿著烈空坐斗篷的皮卡丘卡牌" data-alt="cardPonchoGreen" decoding="async"></button>
         </div>
         <div class="showcase-badge glass"><svg class="icon"><use href="#i-scan"/></svg><div><strong>50 : 50</strong><span data-i18n="idealCentering">找到剛剛好的居中</span></div><span class="badge-tick"><svg class="icon"><use href="#i-check"/></svg></span></div>
-        <div class="showcase-controls"><button class="icon-button showcase-prev" type="button" aria-label="上一張卡牌" data-i18n-aria="previousCard"><svg class="icon"><use href="#i-arrow"/></svg></button><span class="showcase-hint" data-i18n="swipeHint">滑動，遇見下一張收藏</span><button class="icon-button showcase-next" type="button" aria-label="下一張卡牌" data-i18n-aria="nextCard"><svg class="icon"><use href="#i-arrow"/></svg></button></div>
+        <div class="showcase-controls"><button class="icon-button showcase-prev" type="button" aria-label="上一張卡牌" data-i18n-aria="previousCard"><svg class="icon"><use href="#i-arrow"/></svg></button><button class="icon-button showcase-next" type="button" aria-label="下一張卡牌" data-i18n-aria="nextCard"><svg class="icon"><use href="#i-arrow"/></svg></button></div>
         <span class="sr-only" id="carousel-status" aria-live="polite"></span>
       </div>
     </section>
 
     <section id="features" class="feature-section section-space container" aria-labelledby="features-title">
       <div class="section-heading reveal"><p class="eyebrow"><span class="tiny-cross" aria-hidden="true"></span><span data-i18n="featureEyebrow">A LITTLE DETAIL. A BETTER COLLECTION.</span></p><h2 id="features-title" data-i18n="featuresTitle">收藏的細節，<br>看得更清楚。</h2><p class="section-intro" data-i18n="featuresIntro">從自動找框到手動微調，把判斷交給清楚的比例。</p></div>
-      <div class="gallery-intro"><p data-i18n="galleryIntro">透過實際 App 畫面，看看每一步能做什麼。</p><span data-i18n="galleryHint">點選圖片可放大查看</span></div>
-      <div id="app-gallery" class="app-gallery" role="region" aria-label="App 功能介紹圖片" data-i18n-aria="galleryLabel">
-        <figure class="app-poster reveal">
-          <button class="poster-button" type="button" aria-haspopup="dialog" aria-label="放大查看：開始卡牌分析" data-i18n-aria="poster1Action"><img src="assets/features/01-start.webp" width="1080" height="1350" alt="CARD ALIGN 主頁、卡牌輪播與正反面照片匯入功能介紹" data-alt="poster1Alt" loading="lazy" decoding="async"><span class="poster-zoom" aria-hidden="true"><svg class="icon"><use href="#i-search"/></svg></span></button>
-          <figcaption><span class="poster-number">01</span><div><h3 data-i18n="poster1Title">開始卡牌分析</h3><p data-i18n="poster1Body">匯入正反面照片，從你的收藏開始。</p></div></figcaption>
+      <div class="gallery-intro"><p data-i18n="galleryIntro">透過實際 App 畫面，看看每一步能做什麼。</p></div>
+      <div id="app-gallery" class="app-gallery" role="region" aria-label="App 功能介紹" data-i18n-aria="galleryLabel">
+        <figure class="feature-story reveal">
+          <img class="feature-story-image" src="assets/features/01-start.webp" width="1080" height="1350" alt="CARD ALIGN 主頁、卡牌輪播與正反面照片匯入功能介紹" data-alt="poster1Alt" loading="lazy" decoding="async">
+          <figcaption><h3 data-i18n="poster1Title">開始卡牌分析</h3><p data-i18n="poster1Body">匯入正反面照片，從你的收藏開始。</p></figcaption>
         </figure>
-        <figure class="app-poster reveal">
-          <button class="poster-button" type="button" aria-haspopup="dialog" aria-label="放大查看：快速卡牌查價" data-i18n-aria="poster2Action"><img src="assets/features/02-price-search.webp" width="1080" height="1350" alt="以卡名搜尋 SNKRDUNK 卡牌資料及第三方刊登價格的功能介紹" data-alt="poster2Alt" loading="lazy" decoding="async"><span class="poster-zoom" aria-hidden="true"><svg class="icon"><use href="#i-search"/></svg></span></button>
-          <figcaption><span class="poster-number">02</span><div><h3 data-i18n="poster2Title">快速卡牌查價</h3><p data-i18n="poster2Body">搜尋卡名，查看第三方平台的刊登行情。</p></div></figcaption>
+        <figure class="feature-story reveal">
+          <img class="feature-story-image" src="assets/features/02-price-search.webp" width="1080" height="1350" alt="以卡名搜尋 SNKRDUNK 卡牌資料及第三方刊登價格的功能介紹" data-alt="poster2Alt" loading="lazy" decoding="async">
+          <figcaption><h3 data-i18n="poster2Title">快速卡牌查價</h3><p data-i18n="poster2Body">搜尋卡名，查看第三方平台的刊登行情。</p></figcaption>
         </figure>
-        <figure class="app-poster reveal">
-          <button class="poster-button" type="button" aria-haspopup="dialog" aria-label="放大查看：修正拍攝角度" data-i18n-aria="poster3Action"><img src="assets/features/03-alignment.webp" width="1080" height="1350" alt="利用卡牌外框四角定位，校正照片歪斜與透視角度的功能介紹" data-alt="poster3Alt" loading="lazy" decoding="async"><span class="poster-zoom" aria-hidden="true"><svg class="icon"><use href="#i-search"/></svg></span></button>
-          <figcaption><span class="poster-number">03</span><div><h3 data-i18n="poster3Title">修正拍攝角度</h3><p data-i18n="poster3Body">微調四角，讓歪斜的卡牌照片重新對齊。</p></div></figcaption>
+        <figure class="feature-story reveal">
+          <img class="feature-story-image" src="assets/features/03-alignment.webp" width="1080" height="1350" alt="利用卡牌外框四角定位，校正照片歪斜與透視角度的功能介紹" data-alt="poster3Alt" loading="lazy" decoding="async">
+          <figcaption><h3 data-i18n="poster3Title">修正拍攝角度</h3><p data-i18n="poster3Body">微調四角，讓歪斜的卡牌照片重新對齊。</p></figcaption>
         </figure>
-        <figure class="app-poster reveal">
-          <button class="poster-button" type="button" aria-haspopup="dialog" aria-label="放大查看：分析結果與專屬小卡" data-i18n-aria="poster4Action"><img src="assets/features/04-results.webp" width="1080" height="1350" alt="卡牌邊框比例分析報告，以及具有自訂名稱和預估級別的專屬小卡" data-alt="poster4Alt" loading="lazy" decoding="async"><span class="poster-zoom" aria-hidden="true"><svg class="icon"><use href="#i-search"/></svg></span></button>
-          <figcaption><span class="poster-number">04</span><div><h3 data-i18n="poster4Title">分析結果與專屬小卡</h3><p data-i18n="poster4Body">看懂邊框比例，再把結果做成收藏小卡。</p></div></figcaption>
+        <figure class="feature-story reveal">
+          <img class="feature-story-image" src="assets/features/04-results.webp" width="1080" height="1350" alt="卡牌邊框比例分析報告，以及具有自訂名稱和預估級別的專屬小卡" data-alt="poster4Alt" loading="lazy" decoding="async">
+          <figcaption><h3 data-i18n="poster4Title">分析結果與專屬小卡</h3><p data-i18n="poster4Body">看懂邊框比例，再把結果做成收藏小卡。</p></figcaption>
         </figure>
-        <figure class="app-poster reveal">
-          <button class="poster-button" type="button" aria-haspopup="dialog" aria-label="放大查看：圖鑑紀錄收藏" data-i18n-aria="poster5Action"><img src="assets/features/05-collection.webp" width="1080" height="1350" alt="將卡牌圖片、名稱、日期與分析結果儲存到收藏圖鑑的功能介紹" data-alt="poster5Alt" loading="lazy" decoding="async"><span class="poster-zoom" aria-hidden="true"><svg class="icon"><use href="#i-search"/></svg></span></button>
-          <figcaption><span class="poster-number">05</span><div><h3 data-i18n="poster5Title">圖鑑紀錄收藏</h3><p data-i18n="poster5Body">留下名稱、日期與結果，隨時回顧收藏。</p></div></figcaption>
+        <figure class="feature-story reveal">
+          <img class="feature-story-image" src="assets/features/05-collection.webp" width="1080" height="1350" alt="將卡牌圖片、名稱、日期與分析結果儲存到收藏圖鑑的功能介紹" data-alt="poster5Alt" loading="lazy" decoding="async">
+          <figcaption><h3 data-i18n="poster5Title">圖鑑紀錄收藏</h3><p data-i18n="poster5Body">留下名稱、日期與結果，隨時回顧收藏。</p></figcaption>
         </figure>
-        <figure class="app-poster reveal">
-          <button class="poster-button" type="button" aria-haspopup="dialog" aria-label="放大查看：深淺模式與雙語" data-i18n-aria="poster6Action"><img src="assets/features/06-appearance.webp" width="1080" height="1350" alt="CARD ALIGN 的黑夜模式及繁體中文、英文介面切換功能介紹" data-alt="poster6Alt" loading="lazy" decoding="async"><span class="poster-zoom" aria-hidden="true"><svg class="icon"><use href="#i-search"/></svg></span></button>
-          <figcaption><span class="poster-number">06</span><div><h3 data-i18n="poster6Title">深淺模式與雙語</h3><p data-i18n="poster6Body">切換白天、黑夜，以及你習慣的語言。</p></div></figcaption>
+        <figure class="feature-story reveal">
+          <img class="feature-story-image" src="assets/features/06-appearance.webp" width="1080" height="1350" alt="CARD ALIGN 的黑夜模式及繁體中文、英文介面切換功能介紹" data-alt="poster6Alt" loading="lazy" decoding="async">
+          <figcaption><h3 data-i18n="poster6Title">深淺模式與雙語</h3><p data-i18n="poster6Body">切換白天、黑夜，以及你習慣的語言。</p></figcaption>
         </figure>
       </div>
       <div class="feature-layout reveal">
@@ -206,11 +207,11 @@
           <a class="button button-red" href="https://p.ecpay.com.tw/4995119" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-coffee"/></svg><span data-i18n="donationButton">前往綠界贊助</span><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
         </article>
       </div>
-      <p class="service-contact-note"><span data-i18n="serviceContactNote">App 使用或贊助相關問題，歡迎透過客服信箱聯絡。</span><a href="#contact" data-i18n="customerServiceLink">查看客服資訊</a></p>
+      <p class="service-contact-note"><span data-i18n="serviceContactNote">App 使用或贊助相關問題，歡迎透過客服信箱聯絡。</span><a href="contact.html" data-page-link data-i18n="customerServiceLink">查看客服資訊</a></p>
     </section>
 
     <section id="faq" class="faq-section section-space container" aria-labelledby="faq-title">
-      <div class="faq-intro reveal"><p class="eyebrow">A FEW GOOD QUESTIONS.</p><h2 id="faq-title" data-i18n="faqTitle">開始之前，<br>你可能想知道。</h2><a class="text-link" href="mailto:card33358445@gmail.com"><span data-i18n="contact">還有其他問題？聯絡作者</span><svg class="icon"><use href="#i-arrow"/></svg></a></div>
+      <div class="faq-intro reveal"><p class="eyebrow">A FEW GOOD QUESTIONS.</p><h2 id="faq-title" data-i18n="faqTitle">開始之前，<br>你可能想知道。</h2><a class="text-link" href="contact.html" data-page-link><span data-i18n="contact">還有其他問題？聯絡作者</span><svg class="icon"><use href="#i-arrow"/></svg></a></div>
       <div class="faq-list reveal">
         <details><summary><span data-i18n="faq1Q">App 的評分等於正式鑑定嗎？</span><svg class="icon"><use href="#i-plus"/></svg></summary><div class="faq-answer" data-i18n="faq1A">不是。CARD ALIGN 僅依邊框居中比例提供 PSA / BGS 預估級別，不檢查卡角、卡邊磨損或表面狀況，也不是 PSA 或 BGS 的官方產品。請把結果當作整理收藏與送鑑前的參考。</div></details>
         <details><summary><span data-i18n="faq2Q">要準備什麼樣的照片？</span><svg class="icon"><use href="#i-plus"/></svg></summary><div class="faq-answer" data-i18n="faq2A">準備同一張卡牌的正面與背面照片，保留完整四角，盡量正面拍攝並減少反光。可以從相簿匯入，也可以直接開啟相機；照片方向不對時，可先用 90° 旋轉修正。</div></details>
@@ -225,10 +226,10 @@
 
   <footer class="site-footer container">
     <div class="footer-top">
-      <a class="brand" href="#" aria-label="CARD ALIGN home"><img class="brand-mark" src="assets/logo.png" width="36" height="36" alt=""><span>CARD ALIGN<span class="brand-dot" aria-hidden="true">+</span></span></a>
+      <a class="brand" href="index.html" data-page-link aria-label="CARD ALIGN home"><img class="brand-mark" src="assets/logo.png" width="36" height="36" alt=""><span>CARD ALIGN<span class="brand-dot" aria-hidden="true">+</span></span></a>
       <div class="footer-links">
         <a href="#service-info" data-i18n="navService">服務與贊助</a>
-        <a href="#contact" data-i18n="contactUs">聯絡我們</a>
+        <a href="contact.html" data-page-link data-i18n="contactUs">聯絡我們</a>
       </div>
     </div>
     <div id="contact" class="footer-contact">
@@ -238,7 +239,6 @@
     <div class="footer-bottom"><span>© <span id="year">2026</span> CARD ALIGN. <span data-i18n="madeWithCare">Made with care, for collectors.</span></span><span data-i18n="artworkCredit">卡牌圖片僅作功能與收藏展示，相關商標及圖像權利屬原權利人。</span></div>
   </footer>
 
-  <dialog class="card-lightbox" aria-labelledby="lightbox-caption"><button class="icon-button lightbox-close" type="button" aria-label="關閉圖片" data-i18n-aria="closeImage"><svg class="icon"><use href="#i-close"/></svg></button><img src="assets/cards/charizard.webp" width="360" height="502" alt=""><p id="lightbox-caption">Charizard</p><a class="lightbox-original text-link" href="assets/cards/charizard.webp" target="_blank" rel="noopener noreferrer" hidden><span data-i18n="viewOriginal">開啟完整圖片</span><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a></dialog>
   <noscript><p class="noscript-note">JavaScript 已停用，仍可瀏覽網站及下載 App；互動展示與語言切換需要 JavaScript。</p></noscript>
 </body>
 </html>
