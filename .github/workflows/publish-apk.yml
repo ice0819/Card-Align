@@ -2,7 +2,7 @@ name: Publish Android APK
 
 on:
   push:
-    branches: [main]
+    branches: [release/apk-20261028-9e8bf30e]
     paths: ['.github/workflows/publish-apk.yml']
   workflow_dispatch:
 
@@ -18,16 +18,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      APP_TAG: v1.0-card-center
-      APK_NAME: card-center-v1.0.apk
-      APK_SHA256: 2e1a80eb4a1f137d5f531a0fc4045868558868bc6c7f0a0d74a1441499dea0c5
+      APP_TAG: v1.0-card-center-20261028-9e8bf30e
+      APK_NAME: card-center-v1.0-20261028.apk
+      APK_SHA256: 9e8bf30e183663b615ae44ea8c74e5892b0b4257ef6aabf868a717d56b846a9a
     steps:
       - name: Download the existing public APK
         shell: bash
         run: |
           set -euo pipefail
           curl --fail --location --retry 3 --max-time 300 \
-            'https://drive.usercontent.google.com/download?id=1soFLLDzLd4WsMv4V23Er8y3rePDwuLWY&export=download&confirm=t' \
+            'https://drive.usercontent.google.com/download?id=1-EqnuinT38LPWGYSZAYTu7NV1GkfGMtd&export=download&confirm=t' \
             --output "$RUNNER_TEMP/$APK_NAME"
 
       - name: Verify APK integrity
@@ -64,8 +64,8 @@ jobs:
 
           if ! gh release view "$APP_TAG" >/dev/null 2>&1; then
             gh release create "$APP_TAG" --draft --target "$SOURCE_COMMIT" \
-              --title 'CARD CENTER v1.0' \
-              --notes 'Android 7.0+. Download the attached APK to install CARD CENTER. SHA-256: 2e1a80eb4a1f137d5f531a0fc4045868558868bc6c7f0a0d74a1441499dea0c5'
+              --title 'CARD CENTER v1.0 (2026-10-28)' \
+              --notes 'Android 7.0+. Download the attached APK to install CARD CENTER. SHA-256: 9e8bf30e183663b615ae44ea8c74e5892b0b4257ef6aabf868a717d56b846a9a'
           fi
 
           draft=$(gh release view "$APP_TAG" --json isDraft --jq '.isDraft')
