@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: publish-card-align-apk
+  group: publish-card-center-apk
   cancel-in-progress: false
 
 jobs:
@@ -18,9 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      APP_TAG: v1.0
-      APK_NAME: card-align-v1.0.apk
-      APK_SHA256: 6802527ec593f42e6d1381191ac2098013ccefd29f317543d7dde0527ee13402
+      APP_TAG: v1.0-card-center
+      APK_NAME: card-center-v1.0.apk
+      APK_SHA256: 2e1a80eb4a1f137d5f531a0fc4045868558868bc6c7f0a0d74a1441499dea0c5
     steps:
       - name: Download the existing public APK
         shell: bash
@@ -55,14 +55,17 @@ jobs:
             mkdir -p "$RUNNER_TEMP/existing-apk"
             gh release download "$APP_TAG" --pattern "$APK_NAME" --dir "$RUNNER_TEMP/existing-apk"
             printf '%s  %s\n' "$APK_SHA256" "$RUNNER_TEMP/existing-apk/$APK_NAME" | sha256sum --check -
+            if [ "$(gh release view "$APP_TAG" --json isDraft --jq '.isDraft')" = true ]; then
+              gh release edit "$APP_TAG" --draft=false --latest
+            fi
             echo 'The matching APK is already published; no assets were overwritten.'
             exit 0
           fi
 
           if ! gh release view "$APP_TAG" >/dev/null 2>&1; then
             gh release create "$APP_TAG" --draft --target "$SOURCE_COMMIT" \
-              --title 'CARD ALIGN v1.0' \
-              --notes 'Android 7.0+. Download the attached APK to install CARD ALIGN. SHA-256: 6802527ec593f42e6d1381191ac2098013ccefd29f317543d7dde0527ee13402'
+              --title 'CARD CENTER v1.0' \
+              --notes 'Android 7.0+. Download the attached APK to install CARD CENTER. SHA-256: 2e1a80eb4a1f137d5f531a0fc4045868558868bc6c7f0a0d74a1441499dea0c5'
           fi
 
           draft=$(gh release view "$APP_TAG" --json isDraft --jq '.isDraft')
