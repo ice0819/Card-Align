@@ -1,4 +1,4 @@
-# CARD ALIGN 官方介紹網站
+# CARD CENTER 官方介紹網站
 
 原生 HTML、CSS、JavaScript，無須安裝套件或編譯。所有卡圖與 Logo 都隨網站提供，不依賴外部圖片服務。
 
@@ -41,17 +41,17 @@ Cloudflare 發布檔位於 `build/cloudflare-site/`，可直接上傳的壓縮�
 - 瀏覽器安全設定：四頁 HTML 含內容安全政策；`_headers` 提供 Cloudflare Pages 的 CSP、防嵌入、禁止 MIME 猜測、權限限制與 HSTS 回應標頭。GitHub Pages 不套用 `_headers`，但 HTML 中的 CSP 仍會生效。若未來加入跨網站 API 或其他外部資源，須審查後調整白名單。
 - 顏色、字級、手機版排版：`styles.css`。主要紅色為 App 的 `#D32F3C`。
 - 卡圖：`assets/cards/`，來自專案的 `7/` 圖片，已壓縮成 WebP。
-- 功能介紹圖：`assets/features/01-start.webp` 至 `06-appearance.webp`，來自使用者目前 VS Code 工作區 `Card Border App Store Graphic/1.png` 至 `6.png`。保留 1080 × 1350 完整構圖，只轉換為 WebP 以減少網頁載入量。六張圖片以一頁式逐段往下呈現，桌面圖文左右交錯，手機上下排列，沒有標號或圖片放大功能。
+- 功能介紹圖：`assets/features/01-start.webp` 至 `06-appearance.webp`，來自使用者 VS Code 工作區的六張介紹圖。01、04、05、06 已使用內建 image_gen 更新圖片中的品牌為 CARD CENTER，並維持 1080 × 1350 的 WebP 輸出；提示詞與輸出路徑記錄在 `build/card-center-image-updates.json`。六張圖片仍採一頁式逐段呈現，沒有標號或圖片放大功能。
 - Logo：`assets/logo.png`，來自 App 的現有 Logo。
-- 社群分享預覽：`assets/social-preview.jpg`。如果換網址，記得更新 HTML 的 `og:url` 與 `og:image`。
+- 社群分享預覽：`assets/social-preview-card-center.jpg`。如果換網址，記得更新 HTML 的 `og:url` 與 `og:image`。
 
-首頁的兩個下載按鈕直接連到 GitHub Releases 的 `card-align-v1.0.apk` 附件，不需登入或先開啟 Google Drive，停用 JavaScript 也可以下載。
+首頁的兩個下載按鈕直接連到 GitHub Releases 的 `card-center-v1.0.apk` 附件，不需登入或先開啟 Google Drive，停用 JavaScript 也可以下載。
 
 ### GitHub Releases APK 發布
 
 `.github/workflows/publish-apk.yml` 會在該檔案推送至 main 時，或在 Actions 手動啟動時，取得既有公開 APK，核對 SHA-256 及 APK 結構，再發布為 GitHub Release 附件。不會覆寫已存在、內容不同的附件；驗證失敗時不發布新檔。只有發布步驟使用 GitHub 產生的短期權杖，不需要另外提供密碼或個人 Token。
 
-目前版本：v1.0，166,249,494 bytes；SHA-256：`6802527ec593f42e6d1381191ac2098013ccefd29f317543d7dde0527ee13402`。
+目前 APK 版本為 v1.0，GitHub Release 標籤為 `v1.0-card-center`，附件為 `card-center-v1.0.apk`，166,249,482 bytes；SHA-256：`2e1a80eb4a1f137d5f531a0fc4045868558868bc6c7f0a0d74a1441499dea0c5`。來源為使用者更新的公開 Google Drive 檔案，已驗證 App 名稱、簽章與檔案雜湊。
 
 更新 APK 時請同步更新 workflow 的來源、版本、檔名與雜湊，以及 `index.html` 的下載連結。
 
