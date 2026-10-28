@@ -12,7 +12,15 @@ python -m http.server 4173 --bind 127.0.0.1
 
 開啟 <http://127.0.0.1:4173>。也可以直接開啟 `index.html`；若要測試與 GitHub Pages 相同的網址行為，建議使用本機伺服器。
 
-## GitHub Pages
+## Cloudflare Pages 發布紀錄
+
+2026-10-28 已建立 `card-align` Pages 專案，正式網址為 <https://card-align.pages.dev/>，正式分支為 `main`。目前採 Direct Upload，GitHub 原站保留；後續修改須另外發布到 Cloudflare，不會隨 GitHub 推送自動更新。
+
+Cloudflare 發布檔位於 `build/cloudflare-site/`，可直接上傳的壓縮檔為 `build/card-align-cloudflare-pages.zip`。該版本已將聯絡頁及分享資訊中的網址替換成 Cloudflare 正式網址，APK 仍連至既有 GitHub Release。已匿名驗證全部 25 個公開檔案與 APK 下載。
+
+本機部署紀錄為 `build/cloudflare-deployment.json`；部署準備工具為 `build/prepare-cloudflare-site.py`，官方 CLI 包裝工具為 `build/run-cloudflare.py`。這些暫存檔及登入狀態不放入網站發布檔。
+
+## GitHub Pages 設定
 
 目標儲存庫：<https://github.com/ice0819/Card-Align>
 
@@ -30,6 +38,7 @@ python -m http.server 4173 --bind 127.0.0.1
 - 收費資訊：`pricing.html`，保留免費使用與自願贊助內容；上方導覽使用「收費方式」，頁面內與頁尾保留「服務與贊助」。
 - 獨立的聯絡頁面：`contact.html`，客服信箱與網站網址使用相同字級。
 - 導覽、輪播與教學互動：`script.js`；居中預估級別的門檻對照 App 的 `ReportActivity.kt`。網站僅提供繁體中文與白天模式，舊網址的 `lang` 參數與瀏覽器保存的語言、主題偏好會自動清除。
+- 瀏覽器安全設定：四頁 HTML 含內容安全政策；`_headers` 提供 Cloudflare Pages 的 CSP、防嵌入、禁止 MIME 猜測、權限限制與 HSTS 回應標頭。GitHub Pages 不套用 `_headers`，但 HTML 中的 CSP 仍會生效。若未來加入跨網站 API 或其他外部資源，須審查後調整白名單。
 - 顏色、字級、手機版排版：`styles.css`。主要紅色為 App 的 `#D32F3C`。
 - 卡圖：`assets/cards/`，來自專案的 `7/` 圖片，已壓縮成 WebP。
 - 功能介紹圖：`assets/features/01-start.webp` 至 `06-appearance.webp`，來自使用者目前 VS Code 工作區 `Card Border App Store Graphic/1.png` 至 `6.png`。保留 1080 × 1350 完整構圖，只轉換為 WebP 以減少網頁載入量。六張圖片以一頁式逐段往下呈現，桌面圖文左右交錯，手機上下排列，沒有標號或圖片放大功能。

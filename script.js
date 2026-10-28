@@ -134,6 +134,7 @@
       });
     });
     const range = document.querySelector('#centering-offset');
+    const totalHorizontalInset = 24;
     const ratioText = value => `${value} : ${100 - value}`;
     // These thresholds mirror the app's centering estimate in ReportActivity.
     function psaGrade(horizontal, vertical) {
@@ -158,8 +159,8 @@
       document.querySelector('#centering-output').value = ratioText(front.horizontal);
       range.setAttribute('aria-valuetext', `左 ${front.horizontal} 右 ${100 - front.horizontal}`);
       const outline = document.querySelector('.inner-outline');
-      outline.style.setProperty('--demo-left', `${34 * front.horizontal / 100}px`);
-      outline.style.setProperty('--demo-right', `${34 * (100 - front.horizontal) / 100}px`);
+      outline.style.setProperty('--demo-left', `${totalHorizontalInset * front.horizontal / 100}px`);
+      outline.style.setProperty('--demo-right', `${totalHorizontalInset * (100 - front.horizontal) / 100}px`);
       Object.entries({ front, back }).forEach(([side, ratios]) => {
         Object.entries(ratios).forEach(([axis, value]) => {
           document.querySelector(`[data-ratio="${side}-${axis}"]`).textContent = ratioText(value);
