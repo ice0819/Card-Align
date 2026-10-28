@@ -26,14 +26,14 @@ python -m http.server 4173 --bind 127.0.0.1
 ## 修改內容
 
 - 中文文案、結構、下載連結：`index.html`。
-- 使用教學：`tutorial.html`，整合皮卡丘邊框比例互動展示與操作步驟。
+- 使用教學：`tutorial.html`，將操作步驟與皮卡丘互動展示整合成白色區塊；滑桿會同步更新正面左右比例及居中預估級別。
 - 收費資訊：`pricing.html`，保留免費使用與自願贊助內容；上方導覽使用「收費方式」，頁面內與頁尾保留「服務與贊助」。
-- 獨立的聯絡頁面：`contact.html`，使用相同導覽、語言切換與顯示模式；跨頁導覽會保留目前語言。
-- 英文文案、語言切換、輪播與互動：`script.js` 的 `english` 字典。
+- 獨立的聯絡頁面：`contact.html`，客服信箱與網站網址使用相同字級。
+- 導覽、輪播與教學互動：`script.js`；居中預估級別的門檻對照 App 的 `ReportActivity.kt`。網站僅提供繁體中文與白天模式，舊網址的 `lang` 參數與瀏覽器保存的語言、主題偏好會自動清除。
 - 顏色、字級、手機版排版：`styles.css`。主要紅色為 App 的 `#D32F3C`。
 - 卡圖：`assets/cards/`，來自專案的 `7/` 圖片，已壓縮成 WebP。
 - 功能介紹圖：`assets/features/01-start.webp` 至 `06-appearance.webp`，來自使用者目前 VS Code 工作區 `Card Border App Store Graphic/1.png` 至 `6.png`。保留 1080 × 1350 完整構圖，只轉換為 WebP 以減少網頁載入量。六張圖片以一頁式逐段往下呈現，桌面圖文左右交錯，手機上下排列，沒有標號或圖片放大功能。
-- Logo：`assets/logo.png`，來自 App 的現有 Logo；深色模式使用 CSS 反相呈現白色。
+- Logo：`assets/logo.png`，來自 App 的現有 Logo。
 - 社群分享預覽：`assets/social-preview.jpg`。如果換網址，記得更新 HTML 的 `og:url` 與 `og:image`。
 
 首頁的兩個下載按鈕直接連到 GitHub Releases 的 `card-align-v1.0.apk` 附件，不需登入或先開啟 Google Drive，停用 JavaScript 也可以下載。
@@ -48,7 +48,7 @@ python -m http.server 4173 --bind 127.0.0.1
 
 ## 網站內容範圍
 
-網站為產品介紹頁。比例滑桿、預估結果、圖鑑及小卡為互動或版型示意，不在瀏覽器執行卡牌分析；實際功能由 Android App 提供。網頁沒有帳號、追蹤程式或蒐集照片的功能。語言和顯示模式僅儲存於訪客瀏覽器。
+網站為產品介紹頁。比例滑桿、預估結果、圖鑑及小卡為互動或版型示意，不在瀏覽器執行卡牌分析；實際功能由 Android App 提供。網頁沒有帳號、追蹤程式或蒐集照片的功能。網頁僅提供中文白天版；功能圖片中展示的雙語與深淺模式為 Android App 本身的功能。
 
 ## 服務、贊助與客服資訊
 
@@ -56,6 +56,6 @@ python -m http.server 4173 --bind 127.0.0.1
 - 自願贊助：金額自訂，以 **新台幣（TWD）** 計價，連至既有綠界付款頁。網站不蒐集付款資料。
 - 公開客服信箱：**card33358445@gmail.com**，顯示於頁尾並提供 Email 聯絡連結。更換綠界賣家驗證資料時，請同步確認網站聯絡資料。
 - 官網內容可直接瀏覽，不須登入。送審網址請使用官網，而非 APK 的 Google Drive 下載連結。
-- 中文收費資訊的獨立網址為 <https://ice0819.github.io/Card-Align/pricing.html?lang=zh-Hant>。舊主頁的 `#service-info` 與 `#how-it-works` 連結會分別導向收費與教學頁面；所有頁面的跨頁連結均保留目前語言。
+- 收費資訊的獨立網址為 <https://ice0819.github.io/Card-Align/pricing.html>。舊主頁的 `#service-info` 與 `#how-it-works` 連結會分別導向收費與教學頁面。
 
 卡牌圖像與相關商標屬原權利人；展示使用使用者提供的圖片。設計參考 Mobbin 的留白、大字與圖片展示方式，未使用其程式碼、Logo 或網站圖片。
