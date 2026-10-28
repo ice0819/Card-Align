@@ -185,7 +185,24 @@
     }), { threshold: .07 });
     document.querySelectorAll('.reveal').forEach(node => revealObserver.observe(node));
   }
-  document.querySelector('#year').textContent = new Date().getFullYear();
+  let dateRefreshTimer;
+  function refreshCurrentDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    document.querySelectorAll('[data-current-date]').forEach(node => {
+      node.textContent = `${year}.${month}.${day}`;
+    });
+    document.querySelector('#year').textContent = String(year);
+    clearTimeout(dateRefreshTimer);
+    const midnight = new Date(year, now.getMonth(), now.getDate() + 1);
+    dateRefreshTimer = setTimeout(refreshCurrentDate, midnight.getTime() - now.getTime() + 1000);
+  }
+  refreshCurrentDate();
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) refreshCurrentDate();
+  });
   const legacyPages = { '#how-it-works': 'tutorial.html', '#service-info': 'pricing.html' };
   if (page === 'home' && legacyPages[window.location.hash]) {
     const target = new URL(legacyPages[window.location.hash], window.location.href);
